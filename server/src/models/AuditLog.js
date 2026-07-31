@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const AUDIT_ACTIONS = require("../constants/auditActions");
 
 const auditLogSchema = new mongoose.Schema(
   {
@@ -44,6 +45,7 @@ const auditLogSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+    enum: Object.values(AUDIT_ACTIONS),
   },
   {
     timestamps: {

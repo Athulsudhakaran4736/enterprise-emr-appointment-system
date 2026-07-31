@@ -1,19 +1,20 @@
 const mongoose = require("mongoose");
 
-const timePattern = /^([01]\d|2[0-3]):[0-5]\d$/;
+const TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
+const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
 const breakSchema = new mongoose.Schema(
   {
     startTime: {
       type: String,
       required: true,
-      match: [timePattern, "Break start time must use HH:mm format"],
+      match: [TIME_PATTERN, "Break start time must use HH:mm format"],
     },
 
     endTime: {
       type: String,
       required: true,
-      match: [timePattern, "Break end time must use HH:mm format"],
+      match: [TIME_PATTERN, "Break end time must use HH:mm format"],
     },
   },
   {
@@ -26,13 +27,13 @@ const sessionSchema = new mongoose.Schema(
     startTime: {
       type: String,
       required: true,
-      match: [timePattern, "Session start time must use HH:mm format"],
+      match: [TIME_PATTERN, "Session start time must use HH:mm format"],
     },
 
     endTime: {
       type: String,
       required: true,
-      match: [timePattern, "Session end time must use HH:mm format"],
+      match: [TIME_PATTERN, "Session end time must use HH:mm format"],
     },
 
     breaks: {
@@ -75,7 +76,6 @@ const doctorScheduleSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Doctor",
       required: true,
-      index: true,
     },
 
     workingDays: {
@@ -88,33 +88,43 @@ const doctorScheduleSchema = new mongoose.Schema(
       required: true,
       min: [5, "Slot duration must be at least 5 minutes"],
       max: [180, "Slot duration cannot exceed 180 minutes"],
+      default: 15,
     },
 
     timezone: {
       type: String,
+      required: true,
+      trim: true,
       default: "Asia/Kolkata",
     },
 
     effectiveFrom: {
-      type: Date,
+      type: String,
       required: true,
+      match: [DATE_PATTERN, "effectiveFrom must use YYYY-MM-DD format"],
     },
 
     effectiveTo: {
-      type: Date,
+      type: String,
       default: null,
+      match: [DATE_PATTERN, "effectiveTo must use YYYY-MM-DD format"],
     },
 
     isActive: {
       type: Boolean,
       default: true,
-      index: true,
     },
 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+
+    updatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
     },
   },
   {
@@ -125,12 +135,24 @@ const doctorScheduleSchema = new mongoose.Schema(
 doctorScheduleSchema.index({
   doctor: 1,
   isActive: 1,
+  effectiveFrom: 1,
+  effectiveTo: 1,
 });
 
 doctorScheduleSchema.index({
   doctor: 1,
-  effectiveFrom: 1,
-  effectiveTo: 1,
+  createdAt: -1,
+});
+
+doctorScheduleSchema.set("toJSON", {
+  transform: (_document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString();
+
+    delete returnedObject._id;
+    delete returnedObject.__v;
+
+    return returnedObject;
+  },
 });
 
 module.exports = mongoose.model("DoctorSchedule", doctorScheduleSchema);
