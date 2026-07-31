@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const APPOINTMENT_STATUSES = require("../constants/appointmentStatuses");
+const APPOINTMENT_STATUSES = require("../constants/appointmentStatus");
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;

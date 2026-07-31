@@ -1,5 +1,5 @@
 const AUDIT_ACTIONS = require("../constants/auditActions");
-const APPOINTMENT_STATUSES = require("../constants/appointmentStatuses");
+const APPOINTMENT_STATUSES = require("../constants/appointmentStatus");
 const ROLES = require("../constants/roles");
 
 const Appointment = require("../models/Appointment");

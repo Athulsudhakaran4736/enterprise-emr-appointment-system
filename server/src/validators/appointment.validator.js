@@ -1,17 +1,12 @@
 const { body, param, query } = require("express-validator");
 const { DateTime } = require("luxon");
 
-const APPOINTMENT_STATUSES = require("../constants/appointmentStatuses");
+const APPOINTMENT_STATUSES = require("../constants/appointmentStatus");
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
-const GENDERS = [
-  "MALE",
-  "FEMALE",
-  "OTHER",
-  "PREFER_NOT_TO_SAY",
-];
+const GENDERS = ["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"];
 
 const normalizeMobile = (value) => {
   if (typeof value !== "string") {
@@ -25,27 +20,18 @@ const validateDate = (value, fieldName) => {
   const date = DateTime.fromISO(value);
 
   if (!date.isValid || date.toISODate() !== value) {
-    throw new Error(
-      `${fieldName} must be a valid date in YYYY-MM-DD format`
-    );
+    throw new Error(`${fieldName} must be a valid date in YYYY-MM-DD format`);
   }
 
   return true;
 };
 
 const validateNewPatient = (patient) => {
-  if (
-    !patient ||
-    typeof patient !== "object" ||
-    Array.isArray(patient)
-  ) {
+  if (!patient || typeof patient !== "object" || Array.isArray(patient)) {
     throw new Error("Patient details must be an object");
   }
 
-  if (
-    typeof patient.name !== "string" ||
-    patient.name.trim().length === 0
-  ) {
+  if (typeof patient.name !== "string" || patient.name.trim().length === 0) {
     throw new Error("New patient name is required");
   }
 
@@ -53,40 +39,26 @@ const validateNewPatient = (patient) => {
     typeof patient.dateOfBirth !== "string" ||
     !DATE_PATTERN.test(patient.dateOfBirth)
   ) {
-    throw new Error(
-      "New patient date of birth must use YYYY-MM-DD format"
-    );
+    throw new Error("New patient date of birth must use YYYY-MM-DD format");
   }
 
-  validateDate(
-    patient.dateOfBirth,
-    "New patient date of birth"
-  );
+  validateDate(patient.dateOfBirth, "New patient date of birth");
 
-  const dateOfBirth = DateTime.fromISO(
-    patient.dateOfBirth
-  ).startOf("day");
+  const dateOfBirth = DateTime.fromISO(patient.dateOfBirth).startOf("day");
 
   if (dateOfBirth > DateTime.now().startOf("day")) {
-    throw new Error(
-      "New patient date of birth cannot be in the future"
-    );
+    throw new Error("New patient date of birth cannot be in the future");
   }
 
   if (!GENDERS.includes(patient.gender)) {
     throw new Error("Invalid new patient gender");
   }
 
-  const normalizedMobile = String(
-    patient.mobile || ""
-  ).replace(/\D/g, "");
+  const normalizedMobile = String(patient.mobile || "").replace(/\D/g, "");
 
-  if (
-    normalizedMobile.length < 10 ||
-    normalizedMobile.length > 15
-  ) {
+  if (normalizedMobile.length < 10 || normalizedMobile.length > 15) {
     throw new Error(
-      "New patient mobile number must contain between 10 and 15 digits"
+      "New patient mobile number must contain between 10 and 15 digits",
     );
   }
 
@@ -94,51 +66,41 @@ const validateNewPatient = (patient) => {
 };
 
 const createAppointmentValidator = [
-  body()
-    .custom((_value, { req }) => {
-      const hasPatientId =
-        typeof req.body.patientId === "string" &&
-        req.body.patientId.trim().length > 0;
+  body().custom((_value, { req }) => {
+    const hasPatientId =
+      typeof req.body.patientId === "string" &&
+      req.body.patientId.trim().length > 0;
 
-      const hasNewPatient =
-        req.body.patient !== undefined &&
-        req.body.patient !== null;
+    const hasNewPatient =
+      req.body.patient !== undefined && req.body.patient !== null;
 
-      if (hasPatientId && hasNewPatient) {
-        throw new Error(
-          "Provide either patientId or new patient details, not both"
-        );
-      }
+    if (hasPatientId && hasNewPatient) {
+      throw new Error(
+        "Provide either patientId or new patient details, not both",
+      );
+    }
 
-      if (!hasPatientId && !hasNewPatient) {
-        throw new Error(
-          "Provide patientId or new patient details"
-        );
-      }
+    if (!hasPatientId && !hasNewPatient) {
+      throw new Error("Provide patientId or new patient details");
+    }
 
-      return true;
-    }),
+    return true;
+  }),
 
   body("patientId")
     .optional()
     .isMongoId()
     .withMessage("Invalid patient identifier"),
 
-  body("patient")
-    .optional()
-    .custom(validateNewPatient),
+  body("patient").optional().custom(validateNewPatient),
 
   body("patient.name")
     .optional()
     .trim()
     .isLength({ max: 100 })
-    .withMessage(
-      "New patient name cannot exceed 100 characters"
-    ),
+    .withMessage("New patient name cannot exceed 100 characters"),
 
-  body("patient.mobile")
-    .optional()
-    .customSanitizer(normalizeMobile),
+  body("patient.mobile").optional().customSanitizer(normalizeMobile),
 
   body("patient.email")
     .optional({ checkFalsy: true })
@@ -151,9 +113,7 @@ const createAppointmentValidator = [
     .optional()
     .trim()
     .isLength({ max: 500 })
-    .withMessage(
-      "New patient address cannot exceed 500 characters"
-    ),
+    .withMessage("New patient address cannot exceed 500 characters"),
 
   body("patient.emergencyContact")
     .optional()
@@ -165,7 +125,7 @@ const createAppointmentValidator = [
     .customSanitizer(normalizeMobile)
     .isLength({ min: 10, max: 15 })
     .withMessage(
-      "Emergency contact mobile must contain between 10 and 15 digits"
+      "Emergency contact mobile must contain between 10 and 15 digits",
     ),
 
   body("doctorId")
@@ -180,13 +140,9 @@ const createAppointmentValidator = [
     .withMessage("Appointment date is required")
     .bail()
     .matches(DATE_PATTERN)
-    .withMessage(
-      "Appointment date must use YYYY-MM-DD format"
-    )
+    .withMessage("Appointment date must use YYYY-MM-DD format")
     .bail()
-    .custom((value) =>
-      validateDate(value, "Appointment date")
-    ),
+    .custom((value) => validateDate(value, "Appointment date")),
 
   body("startTime")
     .notEmpty()
@@ -199,17 +155,13 @@ const createAppointmentValidator = [
     .optional()
     .trim()
     .isLength({ max: 500 })
-    .withMessage(
-      "Reason for visit cannot exceed 500 characters"
-    ),
+    .withMessage("Reason for visit cannot exceed 500 characters"),
 
   body("notes")
     .optional()
     .trim()
     .isLength({ max: 2000 })
-    .withMessage(
-      "Appointment notes cannot exceed 2000 characters"
-    ),
+    .withMessage("Appointment notes cannot exceed 2000 characters"),
 ];
 
 const listAppointmentsValidator = [
@@ -245,9 +197,7 @@ const listAppointmentsValidator = [
     .matches(DATE_PATTERN)
     .withMessage("dateFrom must use YYYY-MM-DD format")
     .bail()
-    .custom((value) =>
-      validateDate(value, "dateFrom")
-    ),
+    .custom((value) => validateDate(value, "dateFrom")),
 
   query("dateTo")
     .optional()
@@ -268,9 +218,7 @@ const listAppointmentsValidator = [
 ];
 
 const appointmentIdValidator = [
-  param("id")
-    .isMongoId()
-    .withMessage("Invalid appointment identifier"),
+  param("id").isMongoId().withMessage("Invalid appointment identifier"),
 ];
 
 const updateAppointmentValidator = [
@@ -284,13 +232,9 @@ const updateAppointmentValidator = [
   body("appointmentDate")
     .optional()
     .matches(DATE_PATTERN)
-    .withMessage(
-      "Appointment date must use YYYY-MM-DD format"
-    )
+    .withMessage("Appointment date must use YYYY-MM-DD format")
     .bail()
-    .custom((value) =>
-      validateDate(value, "Appointment date")
-    ),
+    .custom((value) => validateDate(value, "Appointment date")),
 
   body("startTime")
     .optional()
@@ -301,40 +245,33 @@ const updateAppointmentValidator = [
     .optional()
     .trim()
     .isLength({ max: 500 })
-    .withMessage(
-      "Reason for visit cannot exceed 500 characters"
-    ),
+    .withMessage("Reason for visit cannot exceed 500 characters"),
 
   body("notes")
     .optional()
     .trim()
     .isLength({ max: 2000 })
-    .withMessage(
-      "Appointment notes cannot exceed 2000 characters"
-    ),
+    .withMessage("Appointment notes cannot exceed 2000 characters"),
 
-  body()
-    .custom((_value, { req }) => {
-      const allowedFields = [
-        "doctorId",
-        "appointmentDate",
-        "startTime",
-        "reasonForVisit",
-        "notes",
-      ];
+  body().custom((_value, { req }) => {
+    const allowedFields = [
+      "doctorId",
+      "appointmentDate",
+      "startTime",
+      "reasonForVisit",
+      "notes",
+    ];
 
-      const hasUpdate = allowedFields.some(
-        (field) => req.body[field] !== undefined
-      );
+    const hasUpdate = allowedFields.some(
+      (field) => req.body[field] !== undefined,
+    );
 
-      if (!hasUpdate) {
-        throw new Error(
-          "Provide at least one appointment field to update"
-        );
-      }
+    if (!hasUpdate) {
+      throw new Error("Provide at least one appointment field to update");
+    }
 
-      return true;
-    }),
+    return true;
+  }),
 ];
 
 const cancelAppointmentValidator = [
@@ -346,9 +283,7 @@ const cancelAppointmentValidator = [
     .withMessage("Cancellation reason is required")
     .bail()
     .isLength({ max: 500 })
-    .withMessage(
-      "Cancellation reason cannot exceed 500 characters"
-    ),
+    .withMessage("Cancellation reason cannot exceed 500 characters"),
 ];
 
 module.exports = {
