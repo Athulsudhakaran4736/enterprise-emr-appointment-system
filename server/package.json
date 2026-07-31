@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "seed:admin": "node src/seeds/seedSuperAdmin.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
