@@ -34,6 +34,45 @@ export const storeSession = ({ accessToken, user }) => {
   localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user))
 }
 
+const redirectToLogin = () => {
+  clearStoredSession()
+
+  if (window.location.pathname !== '/login') {
+    window.location.replace('/login')
+  }
+}
+
+const isAuthEndpoint = (config, path) => config?.url?.includes(path)
+
+const refreshClient = axios.create({
+  baseURL: apiBaseUrl,
+  withCredentials: true,
+})
+
+let refreshPromise = null
+
+const refreshAccessToken = async () => {
+  if (!refreshPromise) {
+    refreshPromise = refreshClient
+      .post('/auth/refresh')
+      .then((response) => {
+        const authData = response.data?.data ?? null
+
+        if (!authData?.user || !authData?.accessToken) {
+          throw new Error('Authentication response is incomplete.')
+        }
+
+        storeSession(authData)
+        return authData.accessToken
+      })
+      .finally(() => {
+        refreshPromise = null
+      })
+  }
+
+  return refreshPromise
+}
+
 export const apiClient = axios.create({
   baseURL: apiBaseUrl,
   withCredentials: true,
@@ -51,12 +90,36 @@ apiClient.interceptors.request.use((config) => {
 
 apiClient.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      clearStoredSession()
-      window.location.replace('/login')
+  async (error) => {
+    const originalRequest = error.config
+
+    if (error.response?.status !== 401 || !originalRequest) {
+      return Promise.reject(error)
     }
 
-    return Promise.reject(error)
+    if (
+      isAuthEndpoint(originalRequest, '/auth/login') ||
+      isAuthEndpoint(originalRequest, '/auth/refresh')
+    ) {
+      redirectToLogin()
+      return Promise.reject(error)
+    }
+
+    if (originalRequest._retry) {
+      redirectToLogin()
+      return Promise.reject(error)
+    }
+
+    originalRequest._retry = true
+
+    try {
+      const nextAccessToken = await refreshAccessToken()
+      originalRequest.headers = originalRequest.headers ?? {}
+      originalRequest.headers.Authorization = `Bearer ${nextAccessToken}`
+      return apiClient(originalRequest)
+    } catch (refreshError) {
+      redirectToLogin()
+      return Promise.reject(refreshError)
+    }
   },
 )

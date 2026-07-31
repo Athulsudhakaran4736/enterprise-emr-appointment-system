@@ -36,7 +36,8 @@ function ReceptionistDashboardPage() {
 
         setAppointments(appointmentResult.items);
         setPatientCount(
-          patientResult.meta.pagination?.totalItems ?? patientResult.items.length,
+          patientResult.meta.pagination?.totalItems ??
+            patientResult.items.length,
         );
         setDoctorCount(
           doctorResult.meta.pagination?.totalItems ?? doctorResult.items.length,
@@ -72,7 +73,8 @@ function ReceptionistDashboardPage() {
   }, [appointments, today]);
 
   const upcomingAppointments = useMemo(
-    () => appointments.filter((item) => item.appointmentDate >= today).slice(0, 5),
+    () =>
+      appointments.filter((item) => item.appointmentDate >= today).slice(0, 5),
     [appointments, today],
   );
 
@@ -87,16 +89,6 @@ function ReceptionistDashboardPage() {
   return (
     <div className="space-y-6">
       {error ? <Alert type="error" message={error} showIcon /> : null}
-      <Card className="rounded-[28px] border-0 shadow-sm">
-        <Tag color="cyan" className="!mb-4 !rounded-full !px-4 !py-1">
-          Reception overview
-        </Tag>
-        <Title level={2} className="!mb-2">Daily front-desk snapshot</Title>
-        <Paragraph className="!mb-0 !text-slate-500">
-          Track today&apos;s queue, patient registrations, and upcoming visits without leaving the reception workflow.
-        </Paragraph>
-      </Card>
-
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <Card className="rounded-[24px] border-0 shadow-sm">
           <Statistic title="Today's appointments" value={metrics.totalToday} />
