@@ -1,54 +1,73 @@
 const express = require("express");
 
+const ROLES = require("../constants/roles");
 const appointmentController = require("../controllers/appointment.controller");
 const authenticate = require("../middlewares/authenticate");
 const authorize = require("../middlewares/authorize");
-const ROLES = require("../constants/roles");
+const validateRequest = require("../middlewares/validateRequest");
+
+const {
+  createAppointmentValidator,
+  listAppointmentsValidator,
+  appointmentIdValidator,
+  updateAppointmentValidator,
+  cancelAppointmentValidator,
+} = require("../validators/appointment.validator");
 
 const router = express.Router();
 
 router.use(authenticate);
 
-// router.post(
-//   "/",
-//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
-//   appointmentController.createAppointment,
-// );
+/*
+ * Super Admin, Receptionist and Doctor can list appointments.
+ *
+ * The service automatically restricts Doctor users to their
+ * own appointments.
+ */
+router.get(
+  "/",
+  listAppointmentsValidator,
+  validateRequest,
+  appointmentController.getAppointments,
+);
 
-// router.get(
-//   "/",
-//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
-//   appointmentController.getAppointments,
-// );
+router.get(
+  "/:id",
+  appointmentIdValidator,
+  validateRequest,
+  appointmentController.getAppointmentById,
+);
 
-// router.get(
-//   "/:id",
-//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
-//   appointmentController.getAppointmentById,
-// );
+router.post(
+  "/",
+  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
+  createAppointmentValidator,
+  validateRequest,
+  appointmentController.createAppointment,
+);
 
-// router.put(
-//   "/:id",
-//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
-//   appointmentController.updateAppointment,
-// );
+router.put(
+  "/:id",
+  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
+  updateAppointmentValidator,
+  validateRequest,
+  appointmentController.updateAppointment,
+);
 
-// router.delete(
-//   "/:id",
-//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
-//   appointmentController.cancelAppointment,
-// );
+router.delete(
+  "/:id",
+  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
+  cancelAppointmentValidator,
+  validateRequest,
+  appointmentController.cancelAppointment,
+);
 
-// router.post(
-//   "/:id/arrive",
-//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
-//   appointmentController.markPatientArrived,
-// );
-
-// router.post(
-//   "/:id/complete",
-//   authorize(ROLES.SUPER_ADMIN, ROLES.DOCTOR),
-//   appointmentController.completeAppointment,
-// );
+router.post(
+  "/:id/arrive",
+  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
+  appointmentIdValidator,
+  validateRequest,
+  appointmentController.markPatientArrived,
+);
 
 module.exports = router;

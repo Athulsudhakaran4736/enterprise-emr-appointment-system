@@ -1,6 +1,7 @@
 const { DateTime } = require("luxon");
 
 const Doctor = require("../models/Doctor");
+const Appointment = require("../models/Appointment");
 const ApiError = require("../utils/ApiError");
 const scheduleService = require("./schedule.service");
 
@@ -168,6 +169,29 @@ const getDoctorSlots = async ({ doctorId, date }) => {
     firstSlot.startTime.localeCompare(secondSlot.startTime),
   );
 
+  const bookedAppointments = await Appointment.find({
+    doctor: doctorId,
+    appointmentDate: date,
+    isActiveBooking: true,
+  })
+    .select("startTime")
+    .lean();
+
+  const bookedStartTimes = new Set(
+    bookedAppointments.map((appointment) => appointment.startTime),
+  );
+
+  const slotsWithStatus = slots.map((slot) => ({
+    ...slot,
+    status: bookedStartTimes.has(slot.startTime) ? "BOOKED" : "AVAILABLE",
+  }));
+
+  const bookedSlots = slotsWithStatus.filter(
+    (slot) => slot.status === "BOOKED",
+  ).length;
+
+  const availableSlots = slotsWithStatus.length - bookedSlots;
+
   return {
     data: {
       doctor: {
@@ -182,12 +206,12 @@ const getDoctorSlots = async ({ doctorId, date }) => {
       date,
       timezone: schedule.timezone,
       slotDurationMinutes: schedule.slotDurationMinutes,
-      slots,
+      slots: slotsWithStatus,
     },
     meta: {
-      totalSlots: slots.length,
-      availableSlots: slots.length,
-      bookedSlots: 0,
+      totalSlots: slotsWithStatus.length,
+      availableSlots,
+      bookedSlots,
     },
   };
 };
