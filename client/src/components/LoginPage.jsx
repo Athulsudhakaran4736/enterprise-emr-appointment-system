@@ -1,10 +1,9 @@
-import { Button, Card, Form, Input, Alert, Space, Tag, Typography, Checkbox, Divider } from 'antd'
+import { Button, Card, Form, Input, Alert, Tag, Typography } from 'antd'
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/useAuth.js'
-import { apiBaseUrl } from '../services/auth.js'
 
-const { Title, Paragraph, Text } = Typography
+const { Title, Text } = Typography
 
 function LoginPage() {
   const [form] = Form.useForm()
@@ -47,33 +46,17 @@ function LoginPage() {
           <Title className="!mb-5 !text-4xl !font-semibold !tracking-tight !text-white md:!text-6xl">
             Secure access for appointment operations and patient workflows.
           </Title>
-          <Paragraph className="!mb-8 !max-w-xl !text-base !leading-7 !text-slate-300 md:!text-lg">
-            Sign in with your staff credentials. Route access is protected by role and the frontend now supports both super admin and doctor workspaces.
-          </Paragraph>
-          <Space size="middle" wrap>
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur">
-              <Text className="!block !text-xs !uppercase !tracking-[0.24em] !text-slate-400">Session model</Text>
-              <Text className="!text-sm !text-slate-100">JWT access token + refresh cookie</Text>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur">
-              <Text className="!block !text-xs !uppercase !tracking-[0.24em] !text-slate-400">API base</Text>
-              <Text className="!text-sm !text-slate-100">{apiBaseUrl}</Text>
-            </div>
-          </Space>
         </div>
 
         <Card className="rounded-[28px] border border-white/10 bg-white/95 shadow-2xl shadow-slate-950/30">
           <div className="mb-8">
             <Text className="!text-xs !font-semibold !uppercase !tracking-[0.3em] !text-teal-700">Welcome back</Text>
             <Title level={2} className="!mb-2 !mt-3 !text-slate-900">Sign in</Title>
-            <Paragraph className="!mb-0 !text-slate-500">
-              Use a supported account role to access the protected workspace.
-            </Paragraph>
           </div>
 
           {serverError ? <Alert className="mb-6" message={serverError} type="error" showIcon /> : null}
 
-          <Form form={form} layout="vertical" size="large" initialValues={{ remember: true }} onFinish={handleFinish}>
+          <Form form={form} layout="vertical" size="large" onFinish={handleFinish}>
             <Form.Item
               label="Email"
               name="email"
@@ -96,26 +79,12 @@ function LoginPage() {
               <Input.Password placeholder="Enter your password" autoComplete="current-password" />
             </Form.Item>
 
-            <div className="mb-6 flex items-center justify-between gap-3">
-              <Form.Item className="!mb-0" name="remember" valuePropName="checked">
-                <Checkbox>Remember this device</Checkbox>
-              </Form.Item>
-              <Button type="link" className="!px-0">Forgot password?</Button>
-            </div>
-
-            <Form.Item className="!mb-4">
+            <Form.Item className="!mb-0">
               <Button block type="primary" htmlType="submit" loading={isSubmitting}>
                 Sign in
               </Button>
             </Form.Item>
           </Form>
-
-          <Divider className="!my-6 !border-slate-200">Access notes</Divider>
-
-          <div className="grid gap-3 text-sm text-slate-500 sm:grid-cols-2">
-            <div className="rounded-2xl bg-slate-50 p-4">All protected routes are enforced in the client router.</div>
-            <div className="rounded-2xl bg-slate-50 p-4">Unsupported roles are redirected to the access denied screen.</div>
-          </div>
         </Card>
       </section>
     </main>

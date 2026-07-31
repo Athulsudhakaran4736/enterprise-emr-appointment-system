@@ -14,13 +14,13 @@ import {
   formatTimeRange,
 } from "./doctor-utils.js";
 
-const { Title, Paragraph, Text } = Typography;
+const { Text } = Typography;
 
 function DoctorDashboardPage() {
   const { user } = useAuth();
   const [doctor, setDoctor] = useState(null);
   const [appointments, setAppointments] = useState([]);
-  const [schedules, setSchedules] = useState([]);
+  const [, setSchedules] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -74,8 +74,6 @@ function DoctorDashboardPage() {
       appointments.filter((item) => item.appointmentDate >= today).slice(0, 5),
     [appointments, today],
   );
-
-  const activeSchedule = schedules.find((item) => item.isActive);
 
   if (isLoading) {
     return (
@@ -137,7 +135,7 @@ function DoctorDashboardPage() {
               >
                 <List.Item.Meta
                   title={item.patient?.name || "Unknown patient"}
-                  description={`${item.appointmentDate} � ${formatTimeRange(item.startTime, item.endTime)} � ${item.department?.name || "Department unavailable"}`}
+                  description={`${item.appointmentDate} | ${formatTimeRange(item.startTime, item.endTime)} | ${item.department?.name || "Department unavailable"}`}
                 />
                 <Tag color={appointmentStatusColors[item.status] || "default"}>
                   {formatStatusLabel(item.status)}
