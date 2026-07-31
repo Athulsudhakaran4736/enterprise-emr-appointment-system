@@ -48,7 +48,7 @@ function LoginPage() {
             Secure access for appointment operations and patient workflows.
           </Title>
           <Paragraph className="!mb-8 !max-w-xl !text-base !leading-7 !text-slate-300 md:!text-lg">
-            Sign in with your staff credentials. Route access is protected by role and the current frontend only unlocks the super admin workspace.
+            Sign in with your staff credentials. Route access is protected by role and the frontend now supports both super admin and doctor workspaces.
           </Paragraph>
           <Space size="middle" wrap>
             <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur">
@@ -67,7 +67,7 @@ function LoginPage() {
             <Text className="!text-xs !font-semibold !uppercase !tracking-[0.3em] !text-teal-700">Welcome back</Text>
             <Title level={2} className="!mb-2 !mt-3 !text-slate-900">Sign in</Title>
             <Paragraph className="!mb-0 !text-slate-500">
-              Use a super admin account to access the protected admin console.
+              Use a supported account role to access the protected workspace.
             </Paragraph>
           </div>
 
@@ -113,8 +113,8 @@ function LoginPage() {
           <Divider className="!my-6 !border-slate-200">Access notes</Divider>
 
           <div className="grid gap-3 text-sm text-slate-500 sm:grid-cols-2">
-            <div className="rounded-2xl bg-slate-50 p-4">All admin routes are protected in the client router.</div>
-            <div className="rounded-2xl bg-slate-50 p-4">Unauthorized roles are redirected to an access denied screen.</div>
+            <div className="rounded-2xl bg-slate-50 p-4">All protected routes are enforced in the client router.</div>
+            <div className="rounded-2xl bg-slate-50 p-4">Unsupported roles are redirected to the access denied screen.</div>
           </div>
         </Card>
       </section>
@@ -123,4 +123,3 @@ function LoginPage() {
 }
 
 export default LoginPage
-

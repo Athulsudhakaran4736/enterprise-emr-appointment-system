@@ -14,6 +14,10 @@ const getHomeRouteForRole = (role) => {
     return '/admin/dashboard'
   }
 
+  if (role === ROLES.DOCTOR) {
+    return '/doctor/dashboard'
+  }
+
   return '/unauthorized'
 }
 

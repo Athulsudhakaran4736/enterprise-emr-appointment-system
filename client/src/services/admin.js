@@ -49,6 +49,15 @@ export const getDoctors = async (params = {}) => {
   }
 }
 
+export const getDoctorById = async (doctorId) => {
+  try {
+    const response = await apiClient.get(`/doctors/${doctorId}`)
+    return response.data?.data?.doctor ?? null
+  } catch (error) {
+    throw new Error(getErrorMessage(error))
+  }
+}
+
 export const createDoctor = async (payload) => {
   try {
     const response = await apiClient.post('/doctors', payload)
@@ -137,6 +146,15 @@ export const getAppointments = async (params = {}) => {
   try {
     const response = await apiClient.get('/appointments', { params })
     return unwrapList(response, 'appointments')
+  } catch (error) {
+    throw new Error(getErrorMessage(error))
+  }
+}
+
+export const getAppointmentById = async (appointmentId) => {
+  try {
+    const response = await apiClient.get(`/appointments/${appointmentId}`)
+    return response.data?.data?.appointment ?? null
   } catch (error) {
     throw new Error(getErrorMessage(error))
   }

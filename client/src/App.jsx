@@ -5,15 +5,22 @@ import LoginPage from './components/LoginPage.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { ROLES } from './constants/auth.js'
 import AdminLayout from './layouts/AdminLayout.jsx'
+import DoctorLayout from './layouts/DoctorLayout.jsx'
+import AppointmentsPage from './pages/admin/AppointmentsPage.jsx'
 import DepartmentsPage from './pages/admin/DepartmentsPage.jsx'
 import DoctorsPage from './pages/admin/DoctorsPage.jsx'
-import AppointmentsPage from './pages/admin/AppointmentsPage.jsx'
 import PatientsPage from './pages/admin/PatientsPage.jsx'
 import ReceptionistsPage from './pages/admin/ReceptionistsPage.jsx'
 import SchedulesPage from './pages/admin/SchedulesPage.jsx'
 import SuperAdminDashboardPage from './pages/admin/SuperAdminDashboardPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import UnauthorizedPage from './pages/UnauthorizedPage.jsx'
+import DoctorAppointmentDetailsPage from './pages/doctor/DoctorAppointmentDetailsPage.jsx'
+import DoctorAppointmentsPage from './pages/doctor/DoctorAppointmentsPage.jsx'
+import DoctorDashboardPage from './pages/doctor/DoctorDashboardPage.jsx'
+import DoctorProfilePage from './pages/doctor/DoctorProfilePage.jsx'
+import DoctorSchedulePage from './pages/doctor/DoctorSchedulePage.jsx'
+import HomeRedirect from './routes/HomeRedirect.jsx'
 import ProtectedRoute from './routes/ProtectedRoute.jsx'
 import PublicRoute from './routes/PublicRoute.jsx'
 
@@ -50,7 +57,18 @@ function App() {
                 </Route>
               </Route>
 
-              <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
+              <Route element={<ProtectedRoute allowedRoles={[ROLES.DOCTOR]} />}>
+                <Route path="/doctor" element={<DoctorLayout />}>
+                  <Route index element={<Navigate to="dashboard" replace />} />
+                  <Route path="dashboard" element={<DoctorDashboardPage />} />
+                  <Route path="appointments" element={<DoctorAppointmentsPage />} />
+                  <Route path="appointments/:appointmentId" element={<DoctorAppointmentDetailsPage />} />
+                  <Route path="schedule" element={<DoctorSchedulePage />} />
+                  <Route path="profile" element={<DoctorProfilePage />} />
+                </Route>
+              </Route>
+
+              <Route path="/" element={<HomeRedirect />} />
               <Route path="/unauthorized" element={<UnauthorizedPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
