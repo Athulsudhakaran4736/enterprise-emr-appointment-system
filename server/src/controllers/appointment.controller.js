@@ -121,6 +121,22 @@ const markPatientArrived = asyncHandler(async (req, res) => {
   });
 });
 
+const markAppointmentCompleted = asyncHandler(async (req, res) => {
+  const appointment = await appointmentService.markAppointmentCompleted({
+    appointmentId: req.params.id,
+    completedBy: req.user._id,
+    actorRole: req.user.role,
+    ...getRequestInformation(req),
+  });
+
+  return sendSuccess(res, {
+    message: "Appointment marked as completed successfully",
+    data: {
+      appointment,
+    },
+  });
+});
+
 module.exports = {
   createAppointment,
   getAppointments,
@@ -128,4 +144,5 @@ module.exports = {
   updateAppointment,
   cancelAppointment,
   markPatientArrived,
+  markAppointmentCompleted,
 };

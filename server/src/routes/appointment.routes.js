@@ -12,18 +12,13 @@ const {
   appointmentIdValidator,
   updateAppointmentValidator,
   cancelAppointmentValidator,
+  completeAppointmentValidator,
 } = require("../validators/appointment.validator");
 
 const router = express.Router();
 
 router.use(authenticate);
 
-/*
- * Super Admin, Receptionist and Doctor can list appointments.
- *
- * The service automatically restricts Doctor users to their
- * own appointments.
- */
 router.get(
   "/",
   listAppointmentsValidator,
@@ -68,6 +63,14 @@ router.post(
   appointmentIdValidator,
   validateRequest,
   appointmentController.markPatientArrived,
+);
+
+router.post(
+  "/:id/complete",
+  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
+  completeAppointmentValidator,
+  validateRequest,
+  appointmentController.markAppointmentCompleted,
 );
 
 module.exports = router;

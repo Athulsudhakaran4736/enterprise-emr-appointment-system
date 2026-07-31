@@ -37,6 +37,7 @@ const populateAppointment = (query) => {
     .populate("createdBy", "name email role")
     .populate("updatedBy", "name email role")
     .populate("arrivedBy", "name email role")
+    .populate("completedBy", "name email role")
     .populate("cancelledBy", "name email role");
 };
 
@@ -129,13 +130,6 @@ const createAppointment = async ({
   ipAddress,
   userAgent,
 }) => {
-  /*
-   * First perform an application-level availability check.
-   *
-   * The database unique index remains the final concurrency
-   * protection in case another request books the slot between
-   * this check and the create operation.
-   */
   const { slot, departmentId } = await findAvailableSlot({
     doctorId,
     appointmentDate,
@@ -242,10 +236,6 @@ const getAppointments = async ({
     actorRole,
   });
 
-  /*
-   * A doctor is restricted to their own appointments.
-   * Super Admin and Receptionist can use the doctor filter.
-   */
   if (actorRole !== ROLES.DOCTOR && doctor) {
     filter.doctor = doctor;
   }
@@ -352,9 +342,7 @@ const updateAppointment = async ({
   }
 
   const targetDoctorId = updates.doctorId || appointment.doctor.toString();
-
   const targetDate = updates.appointmentDate || appointment.appointmentDate;
-
   const targetStartTime = updates.startTime || appointment.startTime;
 
   const scheduleChanged =
@@ -445,7 +433,6 @@ const cancelAppointment = async ({
   }
 
   appointment.status = APPOINTMENT_STATUSES.CANCELLED;
-
   appointment.isActiveBooking = false;
   appointment.cancelledAt = new Date();
   appointment.cancelledBy = cancelledBy;
@@ -495,15 +482,9 @@ const markPatientArrived = async ({
   }
 
   appointment.status = APPOINTMENT_STATUSES.ARRIVED;
-
   appointment.arrivedAt = new Date();
   appointment.arrivedBy = arrivedBy;
   appointment.updatedBy = arrivedBy;
-
-  /*
-   * ARRIVED remains an active booking because the slot
-   * must remain occupied.
-   */
   appointment.isActiveBooking = true;
 
   await appointment.save();
@@ -528,6 +509,59 @@ const markPatientArrived = async ({
   return populateAppointment(Appointment.findById(appointment._id));
 };
 
+const markAppointmentCompleted = async ({
+  appointmentId,
+  completedBy,
+  actorRole,
+  ipAddress,
+  userAgent,
+}) => {
+  const appointment = await Appointment.findById(appointmentId);
+
+  if (!appointment) {
+    throw new ApiError(404, "Appointment not found");
+  }
+
+  if (appointment.status === APPOINTMENT_STATUSES.COMPLETED) {
+    throw new ApiError(400, "Appointment is already completed");
+  }
+
+  if (appointment.status === APPOINTMENT_STATUSES.CANCELLED) {
+    throw new ApiError(400, "Cancelled appointments cannot be completed");
+  }
+
+  if (appointment.status !== APPOINTMENT_STATUSES.ARRIVED) {
+    throw new ApiError(400, "Only arrived appointments can be marked as completed");
+  }
+
+  appointment.status = APPOINTMENT_STATUSES.COMPLETED;
+  appointment.completedAt = new Date();
+  appointment.completedBy = completedBy;
+  appointment.updatedBy = completedBy;
+  appointment.isActiveBooking = false;
+
+  await appointment.save();
+
+  await createAuditLog({
+    user: completedBy,
+    role: actorRole,
+    action: AUDIT_ACTIONS.APPOINTMENT_COMPLETED,
+    entityType: "Appointment",
+    entityId: appointment._id,
+    metadata: {
+      doctor: appointment.doctor,
+      patient: appointment.patient,
+      appointmentDate: appointment.appointmentDate,
+      startTime: appointment.startTime,
+      completedAt: appointment.completedAt,
+    },
+    ipAddress,
+    userAgent,
+  });
+
+  return populateAppointment(Appointment.findById(appointment._id));
+};
+
 module.exports = {
   createAppointment,
   getAppointments,
@@ -535,4 +569,5 @@ module.exports = {
   updateAppointment,
   cancelAppointment,
   markPatientArrived,
+  markAppointmentCompleted,
 };

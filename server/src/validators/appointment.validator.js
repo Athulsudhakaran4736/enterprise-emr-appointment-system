@@ -286,10 +286,13 @@ const cancelAppointmentValidator = [
     .withMessage("Cancellation reason cannot exceed 500 characters"),
 ];
 
+const completeAppointmentValidator = appointmentIdValidator;
+
 module.exports = {
   createAppointmentValidator,
   listAppointmentsValidator,
   appointmentIdValidator,
   updateAppointmentValidator,
   cancelAppointmentValidator,
+  completeAppointmentValidator,
 };

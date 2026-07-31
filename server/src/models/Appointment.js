@@ -57,7 +57,7 @@ const appointmentSchema = new mongoose.Schema(
      * This field is used by the partial unique index.
      *
      * SCHEDULED and ARRIVED appointments block the slot.
-     * CANCELLED appointments do not block the slot.
+     * CANCELLED and COMPLETED appointments do not block the slot.
      */
     isActiveBooking: {
       type: Boolean,
@@ -85,6 +85,17 @@ const appointmentSchema = new mongoose.Schema(
     },
 
     arrivedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
+
+    completedAt: {
+      type: Date,
+      default: null,
+    },
+
+    completedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       default: null,
@@ -125,14 +136,6 @@ const appointmentSchema = new mongoose.Schema(
   },
 );
 
-/*
- * Final concurrency protection.
- *
- * Only one active appointment can occupy the same doctor, date and start time.
- *
- * Cancelled appointments use isActiveBooking: false, so the same slot can
- * later be booked again while preserving the cancelled appointment history.
- */
 appointmentSchema.index(
   {
     doctor: 1,
