@@ -39,6 +39,7 @@ const statusColors = {
   COMPLETED: 'green',
   CANCELLED: 'red',
 }
+const defaultPageSize = 5
 
 const formatStatusLabel = (value) =>
   value
@@ -60,6 +61,7 @@ function AppointmentsPage() {
   const [status, setStatus] = useState(undefined)
   const [department, setDepartment] = useState(undefined)
   const [date, setDate] = useState(undefined)
+  const [pagination, setPagination] = useState({ current: 1, pageSize: defaultPageSize, total: 0 })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [isLoadingSlots, setIsLoadingSlots] = useState(false)
@@ -69,28 +71,33 @@ function AppointmentsPage() {
   const [actionLoadingId, setActionLoadingId] = useState(null)
   const [error, setError] = useState('')
 
-  const refreshAppointments = useCallback(async () => {
+  const refreshAppointments = useCallback(async (nextPage = pagination.current, nextPageSize = pagination.pageSize) => {
     setIsLoading(true)
     setError('')
 
     try {
       const result = await getAppointments({
-        page: 1,
-        limit: 50,
+        page: nextPage,
+        limit: nextPageSize,
         status,
         department,
         date,
       })
       setAppointments(result.items)
+      setPagination({
+        current: result.meta.pagination?.page ?? nextPage,
+        pageSize: result.meta.pagination?.limit ?? nextPageSize,
+        total: result.meta.pagination?.totalItems ?? result.items.length,
+      })
     } catch (loadError) {
       setError(loadError.message)
     } finally {
       setIsLoading(false)
     }
-  }, [status, department, date])
+  }, [status, department, date, pagination.current, pagination.pageSize])
 
   useEffect(() => {
-    getDepartments().then((result) => setDepartments(result.items)).catch(() => {})
+    getDepartments({ page: 1, limit: 100 }).then((result) => setDepartments(result.items)).catch(() => {})
     getDoctors({ page: 1, limit: 100 }).then((result) => setDoctors(result.items)).catch(() => {})
     getPatients({ page: 1, limit: 100 }).then((result) => setPatients(result.items)).catch(() => {})
   }, [])
@@ -300,44 +307,23 @@ function AppointmentsPage() {
     const items = []
 
     if (record.status !== 'CANCELLED' && record.status !== 'COMPLETED') {
-      items.push({
-        key: 'edit',
-        label: 'Edit',
-        disabled: isLocked,
-      })
+      items.push({ key: 'edit', label: 'Edit', disabled: isLocked })
     }
 
     if (record.status === 'SCHEDULED') {
-      items.push({
-        key: 'arrive',
-        label: 'Mark as arrived',
-        disabled: isLocked,
-      })
+      items.push({ key: 'arrive', label: 'Mark as arrived', disabled: isLocked })
     }
 
     if (record.status === 'ARRIVED') {
-      items.push({
-        key: 'complete',
-        label: 'Mark as completed',
-        disabled: isLocked,
-      })
+      items.push({ key: 'complete', label: 'Mark as completed', disabled: isLocked })
     }
 
     if (record.status === 'SCHEDULED' || record.status === 'ARRIVED') {
-      items.push({
-        key: 'cancel',
-        label: 'Cancel appointment',
-        danger: true,
-        disabled: isLocked,
-      })
+      items.push({ key: 'cancel', label: 'Cancel appointment', danger: true, disabled: isLocked })
     }
 
     if (!items.length) {
-      items.push({
-        key: 'empty',
-        label: 'No actions available',
-        disabled: true,
-      })
+      items.push({ key: 'empty', label: 'No actions available', disabled: true })
     }
 
     return items
@@ -385,17 +371,29 @@ function AppointmentsPage() {
           allowClear
           placeholder="Filter by status"
           value={status}
-          onChange={setStatus}
+          onChange={(value) => {
+            setStatus(value)
+            setPagination((currentPagination) => ({ ...currentPagination, current: 1 }))
+          }}
           options={appointmentStatuses.map((value) => ({ value, label: formatStatusLabel(value) }))}
         />
         <Select
           allowClear
           placeholder="Filter by department"
           value={department}
-          onChange={setDepartment}
+          onChange={(value) => {
+            setDepartment(value)
+            setPagination((currentPagination) => ({ ...currentPagination, current: 1 }))
+          }}
           options={departments.map((item) => ({ value: item.id || item._id, label: item.name }))}
         />
-        <DatePicker className="w-full" onChange={(_, dateString) => setDate(dateString || undefined)} />
+        <DatePicker
+          className="w-full"
+          onChange={(_, dateString) => {
+            setDate(dateString || undefined)
+            setPagination((currentPagination) => ({ ...currentPagination, current: 1 }))
+          }}
+        />
       </div>
 
       {error ? <Alert type="error" message={error} showIcon className="mb-4" /> : null}
@@ -405,7 +403,17 @@ function AppointmentsPage() {
         loading={isLoading}
         dataSource={appointments}
         scroll={{ x: 1260 }}
-        pagination={{ pageSize: 8, responsive: true }}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: pagination.total,
+          responsive: true,
+          showSizeChanger: true,
+          pageSizeOptions: ['5', '10', '20', '50'],
+          onChange: (page, pageSize) => {
+            setPagination({ current: page, pageSize, total: pagination.total })
+          },
+        }}
         size="middle"
         columns={[
           {
@@ -433,23 +441,8 @@ function AppointmentsPage() {
           { title: 'Department', dataIndex: ['department', 'name'], key: 'department', width: 170 },
           { title: 'Date', dataIndex: 'appointmentDate', key: 'appointmentDate', width: 130 },
           { title: 'Time', key: 'time', width: 130, render: (_, record) => `${record.startTime} - ${record.endTime}` },
-          {
-            title: 'Status',
-            key: 'status',
-            width: 140,
-            render: (_, record) => (
-              <Tag color={statusColors[record.status] || 'default'}>
-                {formatStatusLabel(record.status)}
-              </Tag>
-            ),
-          },
-          {
-            title: 'Reason',
-            dataIndex: 'reasonForVisit',
-            key: 'reasonForVisit',
-            width: 220,
-            render: (value) => value || 'Not specified',
-          },
+          { title: 'Status', key: 'status', width: 140, render: (_, record) => <Tag color={statusColors[record.status] || 'default'}>{formatStatusLabel(record.status)}</Tag> },
+          { title: 'Reason', dataIndex: 'reasonForVisit', key: 'reasonForVisit', width: 220, render: (value) => value || 'Not specified' },
           {
             title: 'Actions',
             key: 'actions',
@@ -460,13 +453,7 @@ function AppointmentsPage() {
               const loading = actionLoadingId === appointmentId
 
               return (
-                <Dropdown
-                  trigger={['click']}
-                  menu={{
-                    items: getActionItems(record),
-                    onClick: (info) => handleActionClick(info, record),
-                  }}
-                >
+                <Dropdown trigger={['click']} menu={{ items: getActionItems(record), onClick: (info) => handleActionClick(info, record) }}>
                   <Button aria-label={`Actions for appointment ${appointmentId}`} loading={loading} icon={<MoreOutlined />} />
                 </Dropdown>
               )
@@ -567,11 +554,7 @@ function AppointmentsPage() {
         okButtonProps={{ danger: true, loading: actionLoadingId === (cancelTarget?.id || cancelTarget?._id) }}
       >
         <Form form={cancelForm} layout="vertical" onFinish={handleCancel}>
-          <Form.Item
-            label="Cancellation reason"
-            name="cancellationReason"
-            rules={[{ required: true, message: 'Cancellation reason is required' }]}
-          >
+          <Form.Item label="Cancellation reason" name="cancellationReason" rules={[{ required: true, message: 'Cancellation reason is required' }]}>
             <Input.TextArea rows={4} placeholder="Provide a reason for cancellation" />
           </Form.Item>
         </Form>
@@ -581,3 +564,4 @@ function AppointmentsPage() {
 }
 
 export default AppointmentsPage
+

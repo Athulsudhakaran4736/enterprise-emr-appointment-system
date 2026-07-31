@@ -12,6 +12,7 @@ import {
   Tag,
   Typography,
 } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import {
   createDepartment,
@@ -20,12 +21,14 @@ import {
 } from '../../services/admin.js'
 
 const { Title, Paragraph, Text } = Typography
+const defaultPageSize = 5
 
 function DepartmentsPage() {
   const { message } = AntApp.useApp()
   const [form] = Form.useForm()
   const [departments, setDepartments] = useState([])
   const [search, setSearch] = useState('')
+  const [pagination, setPagination] = useState({ current: 1, pageSize: defaultPageSize, total: 0 })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -38,8 +41,17 @@ function DepartmentsPage() {
       setError('')
 
       try {
-        const result = await getDepartments({ search, includeInactive: true })
+        const result = await getDepartments({
+          search,
+          includeInactive: true,
+          page: pagination.current,
+          limit: pagination.pageSize,
+        })
         setDepartments(result.items)
+        setPagination((currentPagination) => ({
+          ...currentPagination,
+          total: result.meta.pagination?.totalItems ?? result.items.length,
+        }))
       } catch (loadError) {
         setError(loadError.message)
       } finally {
@@ -49,7 +61,7 @@ function DepartmentsPage() {
 
     const timeoutId = window.setTimeout(loadDepartments, 250)
     return () => window.clearTimeout(timeoutId)
-  }, [search])
+  }, [search, pagination.current, pagination.pageSize])
 
   const closeModal = () => {
     setIsModalOpen(false)
@@ -75,6 +87,21 @@ function DepartmentsPage() {
     setIsModalOpen(true)
   }
 
+  const reloadDepartments = async (nextPage = pagination.current, nextPageSize = pagination.pageSize) => {
+    const result = await getDepartments({
+      search,
+      includeInactive: true,
+      page: nextPage,
+      limit: nextPageSize,
+    })
+    setDepartments(result.items)
+    setPagination({
+      current: result.meta.pagination?.page ?? nextPage,
+      pageSize: result.meta.pagination?.limit ?? nextPageSize,
+      total: result.meta.pagination?.totalItems ?? result.items.length,
+    })
+  }
+
   const handleSubmit = async (values) => {
     setIsSaving(true)
 
@@ -91,8 +118,7 @@ function DepartmentsPage() {
         message.success('Department created successfully')
       }
 
-      const result = await getDepartments({ search, includeInactive: true })
-      setDepartments(result.items)
+      await reloadDepartments()
       closeModal()
     } catch (saveError) {
       message.error(saveError.message)
@@ -113,10 +139,15 @@ function DepartmentsPage() {
           </div>
           <div className="flex w-full flex-col gap-3 lg:w-auto lg:flex-row">
             <Input.Search
+              size="large"
               placeholder="Search departments"
               allowClear
               className="w-full lg:w-80"
-              onChange={(event) => setSearch(event.target.value)}
+              enterButton={<Button size="large" icon={<SearchOutlined />} className="!px-4" />}
+              onChange={(event) => {
+                setSearch(event.target.value)
+                setPagination((currentPagination) => ({ ...currentPagination, current: 1 }))
+              }}
             />
             <Button type="primary" size="large" onClick={openCreateModal}>
               Create Department
@@ -130,7 +161,17 @@ function DepartmentsPage() {
           rowKey={(record) => record.id || record._id}
           loading={isLoading}
           dataSource={departments}
-          pagination={{ pageSize: 8, responsive: true }}
+          pagination={{
+            current: pagination.current,
+            pageSize: pagination.pageSize,
+            total: pagination.total,
+            responsive: true,
+            showSizeChanger: true,
+            pageSizeOptions: ['5', '10', '20', '50'],
+            onChange: (page, pageSize) => {
+              setPagination({ current: page, pageSize, total: pagination.total })
+            },
+          }}
           scroll={{ x: 900 }}
           size="middle"
           columns={[
@@ -159,9 +200,7 @@ function DepartmentsPage() {
               title: 'Action',
               key: 'action',
               width: 120,
-              render: (_, record) => (
-                <Button onClick={() => openEditModal(record)}>Edit</Button>
-              ),
+              render: (_, record) => <Button onClick={() => openEditModal(record)}>Edit</Button>,
             },
           ]}
         />
@@ -197,3 +236,4 @@ function DepartmentsPage() {
 }
 
 export default DepartmentsPage
+

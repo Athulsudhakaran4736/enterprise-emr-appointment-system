@@ -6,12 +6,14 @@ import { appointmentStatusColors, formatStatusLabel, formatTimeRange } from './d
 
 const { Title, Paragraph } = Typography
 const appointmentStatuses = ['SCHEDULED', 'ARRIVED', 'COMPLETED', 'CANCELLED']
+const defaultPageSize = 5
 
 function DoctorAppointmentsPage() {
   const navigate = useNavigate()
   const [appointments, setAppointments] = useState([])
   const [status, setStatus] = useState(undefined)
   const [date, setDate] = useState(undefined)
+  const [pagination, setPagination] = useState({ current: 1, pageSize: defaultPageSize, total: 0 })
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -22,12 +24,16 @@ function DoctorAppointmentsPage() {
 
       try {
         const result = await getMyAppointments({
-          page: 1,
-          limit: 100,
+          page: pagination.current,
+          limit: pagination.pageSize,
           status,
           date,
         })
         setAppointments(result.items)
+        setPagination((currentPagination) => ({
+          ...currentPagination,
+          total: result.meta.pagination?.totalItems ?? result.items.length,
+        }))
       } catch (loadError) {
         setError(loadError.message)
       } finally {
@@ -36,7 +42,7 @@ function DoctorAppointmentsPage() {
     }
 
     loadAppointments()
-  }, [status, date])
+  }, [status, date, pagination.current, pagination.pageSize])
 
   const columns = useMemo(
     () => [
@@ -51,50 +57,21 @@ function DoctorAppointmentsPage() {
           </div>
         ),
       },
-      {
-        title: 'Department',
-        key: 'department',
-        dataIndex: ['department', 'name'],
-        width: 170,
-      },
-      {
-        title: 'Date',
-        key: 'appointmentDate',
-        dataIndex: 'appointmentDate',
-        width: 130,
-      },
-      {
-        title: 'Time',
-        key: 'time',
-        width: 140,
-        render: (_, record) => formatTimeRange(record.startTime, record.endTime),
-      },
+      { title: 'Department', key: 'department', dataIndex: ['department', 'name'], width: 170 },
+      { title: 'Date', key: 'appointmentDate', dataIndex: 'appointmentDate', width: 130 },
+      { title: 'Time', key: 'time', width: 140, render: (_, record) => formatTimeRange(record.startTime, record.endTime) },
       {
         title: 'Status',
         key: 'status',
         width: 140,
-        render: (_, record) => (
-          <Tag color={appointmentStatusColors[record.status] || 'default'}>
-            {formatStatusLabel(record.status)}
-          </Tag>
-        ),
+        render: (_, record) => <Tag color={appointmentStatusColors[record.status] || 'default'}>{formatStatusLabel(record.status)}</Tag>,
       },
-      {
-        title: 'Reason',
-        key: 'reasonForVisit',
-        dataIndex: 'reasonForVisit',
-        width: 220,
-        render: (value) => value || 'Not specified',
-      },
+      { title: 'Reason', key: 'reasonForVisit', dataIndex: 'reasonForVisit', width: 220, render: (value) => value || 'Not specified' },
       {
         title: 'Actions',
         key: 'actions',
         width: 120,
-        render: (_, record) => (
-          <Button onClick={() => navigate(`/doctor/appointments/${record.id || record._id}`)}>
-            View
-          </Button>
-        ),
+        render: (_, record) => <Button onClick={() => navigate(`/doctor/appointments/${record.id || record._id}`)}>View</Button>,
       },
     ],
     [navigate],
@@ -124,10 +101,19 @@ function DoctorAppointmentsPage() {
           allowClear
           placeholder="Filter by status"
           value={status}
-          onChange={setStatus}
+          onChange={(value) => {
+            setStatus(value)
+            setPagination((currentPagination) => ({ ...currentPagination, current: 1 }))
+          }}
           options={appointmentStatuses.map((value) => ({ value, label: formatStatusLabel(value) }))}
         />
-        <DatePicker className="w-full" onChange={(_, dateString) => setDate(dateString || undefined)} />
+        <DatePicker
+          className="w-full"
+          onChange={(_, dateString) => {
+            setDate(dateString || undefined)
+            setPagination((currentPagination) => ({ ...currentPagination, current: 1 }))
+          }}
+        />
       </div>
 
       {error ? <Alert type="error" message={error} showIcon className="mb-4" /> : null}
@@ -136,7 +122,17 @@ function DoctorAppointmentsPage() {
         rowKey={(record) => record.id || record._id}
         dataSource={appointments}
         columns={columns}
-        pagination={{ pageSize: 10, responsive: true }}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: pagination.total,
+          responsive: true,
+          showSizeChanger: true,
+          pageSizeOptions: ['5', '10', '20', '50'],
+          onChange: (page, pageSize) => {
+            setPagination({ current: page, pageSize, total: pagination.total })
+          },
+        }}
         scroll={{ x: 1080 }}
       />
     </Card>
@@ -144,3 +140,4 @@ function DoctorAppointmentsPage() {
 }
 
 export default DoctorAppointmentsPage
+

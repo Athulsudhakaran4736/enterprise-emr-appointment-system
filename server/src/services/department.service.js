@@ -44,7 +44,13 @@ const createDepartment = async ({ name, code, description, userId }) => {
   return department;
 };
 
-const getDepartments = async ({ search, includeInactive, currentUserRole }) => {
+const getDepartments = async ({
+  search,
+  includeInactive,
+  currentUserRole,
+  page = 1,
+  limit = 20,
+}) => {
   const filter = {};
 
   const canViewInactive =
@@ -73,16 +79,33 @@ const getDepartments = async ({ search, includeInactive, currentUserRole }) => {
     ];
   }
 
-  return Department.find(filter)
-    .select(
-      "name code description isActive createdBy updatedBy createdAt updatedAt",
-    )
-    .populate("createdBy", "name email")
-    .populate("updatedBy", "name email")
-    .sort({
-      name: 1,
-    })
-    .lean();
+  const skip = (page - 1) * limit;
+
+  const [departments, totalItems] = await Promise.all([
+    Department.find(filter)
+      .select(
+        "name code description isActive createdBy updatedBy createdAt updatedAt",
+      )
+      .populate("createdBy", "name email")
+      .populate("updatedBy", "name email")
+      .sort({
+        name: 1,
+      })
+      .skip(skip)
+      .limit(limit)
+      .lean(),
+    Department.countDocuments(filter),
+  ]);
+
+  return {
+    departments,
+    pagination: {
+      page,
+      limit,
+      totalItems,
+      totalPages: totalItems === 0 ? 0 : Math.ceil(totalItems / limit),
+    },
+  };
 };
 
 const getDepartmentById = async ({ departmentId, currentUserRole }) => {

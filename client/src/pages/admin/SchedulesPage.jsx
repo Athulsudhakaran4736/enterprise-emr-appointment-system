@@ -25,6 +25,7 @@ const timezoneOptions = [
   { value: 'Asia/Kolkata', label: 'Asia/Kolkata' },
   { value: 'UTC', label: 'UTC' },
 ]
+const defaultPageSize = 5
 
 const createDefaultWorkingDays = () =>
   dayLabels.map((_, index) => ({
@@ -39,6 +40,7 @@ function SchedulesPage() {
   const [doctors, setDoctors] = useState([])
   const [selectedDoctorId, setSelectedDoctorId] = useState(null)
   const [schedules, setSchedules] = useState([])
+  const [pagination, setPagination] = useState({ current: 1, pageSize: defaultPageSize, total: 0 })
   const [isLoadingDoctors, setIsLoadingDoctors] = useState(true)
   const [isLoadingSchedules, setIsLoadingSchedules] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -51,13 +53,27 @@ function SchedulesPage() {
     [doctors, selectedDoctorId],
   )
 
-  const loadSchedules = async (doctorId) => {
+  const loadSchedules = async (doctorId, nextPage = pagination.current, nextPageSize = pagination.pageSize) => {
+    if (!doctorId) {
+      setSchedules([])
+      return
+    }
+
     setIsLoadingSchedules(true)
     setError('')
 
     try {
-      const result = await getDoctorSchedules(doctorId, { includeInactive: true })
+      const result = await getDoctorSchedules(doctorId, {
+        includeInactive: true,
+        page: nextPage,
+        limit: nextPageSize,
+      })
       setSchedules(result.items)
+      setPagination({
+        current: result.meta.pagination?.page ?? nextPage,
+        pageSize: result.meta.pagination?.limit ?? nextPageSize,
+        total: result.meta.pagination?.totalItems ?? result.items.length,
+      })
     } catch (loadError) {
       setError(loadError.message)
     } finally {
@@ -90,7 +106,7 @@ function SchedulesPage() {
     if (selectedDoctorId) {
       loadSchedules(selectedDoctorId)
     }
-  }, [selectedDoctorId])
+  }, [selectedDoctorId, pagination.current, pagination.pageSize])
 
   const closeModal = () => {
     setIsModalOpen(false)
@@ -201,7 +217,10 @@ function SchedulesPage() {
             className="w-full lg:w-[360px]"
             loading={isLoadingDoctors}
             value={selectedDoctorId}
-            onChange={setSelectedDoctorId}
+            onChange={(value) => {
+              setSelectedDoctorId(value)
+              setPagination((currentPagination) => ({ ...currentPagination, current: 1 }))
+            }}
             options={doctors.map((doctor) => ({
               value: doctor.id || doctor._id,
               label: `${doctor.user?.name} - ${doctor.specialization}`,
@@ -221,7 +240,17 @@ function SchedulesPage() {
           loading={isLoadingSchedules}
           dataSource={schedules}
           locale={{ emptyText: <Empty description="No schedules found for the selected doctor" /> }}
-          pagination={{ pageSize: 6, responsive: true }}
+          pagination={{
+            current: pagination.current,
+            pageSize: pagination.pageSize,
+            total: pagination.total,
+            responsive: true,
+            showSizeChanger: true,
+            pageSizeOptions: ['5', '10', '20', '50'],
+            onChange: (page, pageSize) => {
+              setPagination({ current: page, pageSize, total: pagination.total })
+            },
+          }}
           scroll={{ x: 960 }}
           size="middle"
           columns={[
@@ -229,28 +258,9 @@ function SchedulesPage() {
             { title: 'Effective To', dataIndex: 'effectiveTo', key: 'effectiveTo', width: 140, render: (value) => value || 'Open-ended' },
             { title: 'Timezone', dataIndex: 'timezone', key: 'timezone', width: 150 },
             { title: 'Slot Duration', dataIndex: 'slotDurationMinutes', key: 'slotDurationMinutes', width: 140, render: (value) => `${value} min` },
-            {
-              title: 'Working Days',
-              key: 'workingDays',
-              render: (_, record) =>
-                record.workingDays.filter((day) => day.isWorking).map((day) => dayLabels[day.dayOfWeek]).join(', '),
-            },
-            {
-              title: 'Status',
-              key: 'status',
-              width: 120,
-              render: (_, record) => (
-                <Tag color={record.isActive ? 'green' : 'default'}>
-                  {record.isActive ? 'Active' : 'Inactive'}
-                </Tag>
-              ),
-            },
-            {
-              title: 'Action',
-              key: 'action',
-              width: 120,
-              render: (_, record) => <Button onClick={() => openEditModal(record)}>Edit</Button>,
-            },
+            { title: 'Working Days', key: 'workingDays', render: (_, record) => record.workingDays.filter((day) => day.isWorking).map((day) => dayLabels[day.dayOfWeek]).join(', ') },
+            { title: 'Status', key: 'status', width: 120, render: (_, record) => <Tag color={record.isActive ? 'green' : 'default'}>{record.isActive ? 'Active' : 'Inactive'}</Tag> },
+            { title: 'Action', key: 'action', width: 120, render: (_, record) => <Button onClick={() => openEditModal(record)}>Edit</Button> },
           ]}
         />
       ) : (
@@ -323,3 +333,4 @@ function SchedulesPage() {
 }
 
 export default SchedulesPage
+

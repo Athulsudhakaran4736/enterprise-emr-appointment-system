@@ -1,4 +1,4 @@
-import { Card, Col, Row, Statistic, Tag, Typography } from "antd";
+import { Card, Col, Row, Statistic } from "antd";
 import { useEffect, useState } from "react";
 import {
   getAppointments,
@@ -7,8 +7,6 @@ import {
   getPatients,
   getUsers,
 } from "../../services/admin.js";
-
-const { Title, Paragraph } = Typography;
 
 function SuperAdminDashboardPage() {
   const [stats, setStats] = useState({
@@ -23,7 +21,7 @@ function SuperAdminDashboardPage() {
     const loadStats = async () => {
       const [departments, doctors, appointments, patients, receptionists] =
         await Promise.all([
-          getDepartments({ includeInactive: true }),
+          getDepartments({ includeInactive: true, page: 1, limit: 1 }),
           getDoctors({ page: 1, limit: 1 }),
           getAppointments({ page: 1, limit: 1 }),
           getPatients({ page: 1, limit: 1, includeInactive: true }),
@@ -31,7 +29,8 @@ function SuperAdminDashboardPage() {
         ]);
 
       setStats({
-        departments: departments.meta.total ?? departments.items.length,
+        departments:
+          departments.meta.pagination?.totalItems ?? departments.items.length,
         doctors: doctors.meta.pagination?.totalItems ?? doctors.items.length,
         appointments:
           appointments.meta.pagination?.totalItems ?? appointments.items.length,

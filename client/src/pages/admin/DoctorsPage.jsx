@@ -13,6 +13,7 @@ import {
   Tag,
   Typography,
 } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import {
   createDoctor,
@@ -22,6 +23,7 @@ import {
 } from '../../services/admin.js'
 
 const { Title, Paragraph } = Typography
+const defaultPageSize = 5
 
 function DoctorsPage() {
   const { message } = AntApp.useApp()
@@ -29,6 +31,7 @@ function DoctorsPage() {
   const [doctors, setDoctors] = useState([])
   const [departments, setDepartments] = useState([])
   const [search, setSearch] = useState('')
+  const [pagination, setPagination] = useState({ current: 1, pageSize: defaultPageSize, total: 0 })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -36,7 +39,7 @@ function DoctorsPage() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    getDepartments({ includeInactive: false })
+    getDepartments({ includeInactive: false, page: 1, limit: 100 })
       .then((result) => {
         setDepartments(result.items)
       })
@@ -49,8 +52,16 @@ function DoctorsPage() {
       setError('')
 
       try {
-        const result = await getDoctors({ search, page: 1, limit: 50 })
+        const result = await getDoctors({
+          search,
+          page: pagination.current,
+          limit: pagination.pageSize,
+        })
         setDoctors(result.items)
+        setPagination((currentPagination) => ({
+          ...currentPagination,
+          total: result.meta.pagination?.totalItems ?? result.items.length,
+        }))
       } catch (loadError) {
         setError(loadError.message)
       } finally {
@@ -60,7 +71,7 @@ function DoctorsPage() {
 
     const timeoutId = window.setTimeout(loadDoctors, 250)
     return () => window.clearTimeout(timeoutId)
-  }, [search])
+  }, [search, pagination.current, pagination.pageSize])
 
   const closeModal = () => {
     setIsModalOpen(false)
@@ -89,6 +100,16 @@ function DoctorsPage() {
     setIsModalOpen(true)
   }
 
+  const reloadDoctors = async (nextPage = pagination.current, nextPageSize = pagination.pageSize) => {
+    const result = await getDoctors({ search, page: nextPage, limit: nextPageSize })
+    setDoctors(result.items)
+    setPagination({
+      current: result.meta.pagination?.page ?? nextPage,
+      pageSize: result.meta.pagination?.limit ?? nextPageSize,
+      total: result.meta.pagination?.totalItems ?? result.items.length,
+    })
+  }
+
   const handleSubmit = async (values) => {
     setIsSaving(true)
 
@@ -101,8 +122,7 @@ function DoctorsPage() {
         message.success('Doctor created successfully')
       }
 
-      const result = await getDoctors({ search, page: 1, limit: 50 })
-      setDoctors(result.items)
+      await reloadDoctors()
       closeModal()
     } catch (saveError) {
       message.error(saveError.message)
@@ -122,10 +142,15 @@ function DoctorsPage() {
         </div>
         <div className="flex w-full flex-col gap-3 lg:w-auto lg:flex-row">
           <Input.Search
+            size="large"
             placeholder="Search doctors"
             allowClear
             className="w-full lg:w-80"
-            onChange={(event) => setSearch(event.target.value)}
+            enterButton={<Button size="large" icon={<SearchOutlined />} className="!px-4" />}
+            onChange={(event) => {
+              setSearch(event.target.value)
+              setPagination((currentPagination) => ({ ...currentPagination, current: 1 }))
+            }}
           />
           <Button type="primary" size="large" onClick={openCreateModal}>
             Create Doctor
@@ -139,7 +164,17 @@ function DoctorsPage() {
         rowKey={(record) => record.id || record._id}
         loading={isLoading}
         dataSource={doctors}
-        pagination={{ pageSize: 8, responsive: true }}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: pagination.total,
+          responsive: true,
+          showSizeChanger: true,
+          pageSizeOptions: ['5', '10', '20', '50'],
+          onChange: (page, pageSize) => {
+            setPagination({ current: page, pageSize, total: pagination.total })
+          },
+        }}
         scroll={{ x: 980 }}
         size="middle"
         columns={[
@@ -154,41 +189,20 @@ function DoctorsPage() {
               </div>
             ),
           },
-          {
-            title: 'Department',
-            dataIndex: ['department', 'name'],
-            key: 'department',
-            width: 180,
-          },
-          {
-            title: 'Specialization',
-            dataIndex: 'specialization',
-            key: 'specialization',
-            width: 200,
-          },
-          {
-            title: 'Registration',
-            dataIndex: 'registrationNumber',
-            key: 'registrationNumber',
-            width: 180,
-          },
+          { title: 'Department', dataIndex: ['department', 'name'], key: 'department', width: 180 },
+          { title: 'Specialization', dataIndex: 'specialization', key: 'specialization', width: 200 },
+          { title: 'Registration', dataIndex: 'registrationNumber', key: 'registrationNumber', width: 180 },
           {
             title: 'Status',
             key: 'status',
             width: 120,
-            render: (_, record) => (
-              <Tag color={record.isActive ? 'green' : 'default'}>
-                {record.isActive ? 'Active' : 'Inactive'}
-              </Tag>
-            ),
+            render: (_, record) => <Tag color={record.isActive ? 'green' : 'default'}>{record.isActive ? 'Active' : 'Inactive'}</Tag>,
           },
           {
             title: 'Action',
             key: 'action',
             width: 120,
-            render: (_, record) => (
-              <Button onClick={() => openEditModal(record)}>Edit</Button>
-            ),
+            render: (_, record) => <Button onClick={() => openEditModal(record)}>Edit</Button>,
           },
         ]}
       />
@@ -245,3 +259,4 @@ function DoctorsPage() {
 }
 
 export default DoctorsPage
+

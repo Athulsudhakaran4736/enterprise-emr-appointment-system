@@ -13,6 +13,7 @@ import {
   Tag,
   Typography,
 } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import {
@@ -22,12 +23,14 @@ import {
 } from '../../services/admin.js'
 
 const { Title, Paragraph } = Typography
+const defaultPageSize = 5
 
 function PatientsPage() {
   const { message } = AntApp.useApp()
   const [form] = Form.useForm()
   const [patients, setPatients] = useState([])
   const [search, setSearch] = useState('')
+  const [pagination, setPagination] = useState({ current: 1, pageSize: defaultPageSize, total: 0 })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -40,8 +43,17 @@ function PatientsPage() {
       setError('')
 
       try {
-        const result = await getPatients({ search, page: 1, limit: 50, includeInactive: true })
+        const result = await getPatients({
+          search,
+          page: pagination.current,
+          limit: pagination.pageSize,
+          includeInactive: true,
+        })
         setPatients(result.items)
+        setPagination((currentPagination) => ({
+          ...currentPagination,
+          total: result.meta.pagination?.totalItems ?? result.items.length,
+        }))
       } catch (loadError) {
         setError(loadError.message)
       } finally {
@@ -51,7 +63,7 @@ function PatientsPage() {
 
     const timeoutId = window.setTimeout(loadPatients, 250)
     return () => window.clearTimeout(timeoutId)
-  }, [search])
+  }, [search, pagination.current, pagination.pageSize])
 
   const closeModal = () => {
     setIsModalOpen(false)
@@ -81,6 +93,21 @@ function PatientsPage() {
     setIsModalOpen(true)
   }
 
+  const reloadPatients = async (nextPage = pagination.current, nextPageSize = pagination.pageSize) => {
+    const result = await getPatients({
+      search,
+      page: nextPage,
+      limit: nextPageSize,
+      includeInactive: true,
+    })
+    setPatients(result.items)
+    setPagination({
+      current: result.meta.pagination?.page ?? nextPage,
+      pageSize: result.meta.pagination?.limit ?? nextPageSize,
+      total: result.meta.pagination?.totalItems ?? result.items.length,
+    })
+  }
+
   const handleSubmit = async (values) => {
     setIsSaving(true)
 
@@ -98,8 +125,7 @@ function PatientsPage() {
         message.success('Patient created successfully')
       }
 
-      const result = await getPatients({ search, page: 1, limit: 50, includeInactive: true })
-      setPatients(result.items)
+      await reloadPatients()
       closeModal()
     } catch (saveError) {
       message.error(saveError.message)
@@ -118,7 +144,17 @@ function PatientsPage() {
           </Paragraph>
         </div>
         <div className="flex w-full flex-col gap-3 lg:w-auto lg:flex-row">
-          <Input.Search placeholder="Search patients" allowClear className="w-full lg:w-80" onChange={(event) => setSearch(event.target.value)} />
+          <Input.Search
+            size="large"
+            placeholder="Search patients"
+            allowClear
+            className="w-full lg:w-80"
+            enterButton={<Button size="large" icon={<SearchOutlined />} className="!px-4" />}
+            onChange={(event) => {
+              setSearch(event.target.value)
+              setPagination((currentPagination) => ({ ...currentPagination, current: 1 }))
+            }}
+          />
           <Button type="primary" size="large" onClick={openCreateModal}>
             Create Patient
           </Button>
@@ -132,7 +168,17 @@ function PatientsPage() {
         loading={isLoading}
         dataSource={patients}
         scroll={{ x: 980 }}
-        pagination={{ pageSize: 8, responsive: true }}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: pagination.total,
+          responsive: true,
+          showSizeChanger: true,
+          pageSizeOptions: ['5', '10', '20', '50'],
+          onChange: (page, pageSize) => {
+            setPagination({ current: page, pageSize, total: pagination.total })
+          },
+        }}
         size="middle"
         columns={[
           { title: 'Patient No.', dataIndex: 'patientNumber', key: 'patientNumber', width: 180 },
@@ -197,3 +243,4 @@ function PatientsPage() {
 }
 
 export default PatientsPage
+

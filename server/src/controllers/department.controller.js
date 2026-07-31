@@ -20,19 +20,21 @@ const createDepartment = asyncHandler(async (req, res) => {
 });
 
 const getDepartments = asyncHandler(async (req, res) => {
-  const departments = await departmentService.getDepartments({
+  const result = await departmentService.getDepartments({
     search: req.query.search,
     includeInactive: req.query.includeInactive === "true",
     currentUserRole: req.user.role,
+    page: Number(req.query.page) || 1,
+    limit: Number(req.query.limit) || 20,
   });
 
   return sendSuccess(res, {
     message: "Departments retrieved successfully",
     data: {
-      departments,
+      departments: result.departments,
     },
     meta: {
-      total: departments.length,
+      pagination: result.pagination,
     },
   });
 });

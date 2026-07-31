@@ -14,11 +14,13 @@ import { useEffect, useState } from 'react'
 import { createReceptionist, getUsers } from '../../services/admin.js'
 
 const { Title, Paragraph } = Typography
+const defaultPageSize = 5
 
 function ReceptionistsPage() {
   const { message } = AntApp.useApp()
   const [form] = Form.useForm()
   const [receptionists, setReceptionists] = useState([])
+  const [pagination, setPagination] = useState({ current: 1, pageSize: defaultPageSize, total: 0 })
   const [isLoading, setIsLoading] = useState(true)
   const [isCreating, setIsCreating] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -30,8 +32,16 @@ function ReceptionistsPage() {
       setError('')
 
       try {
-        const result = await getUsers({ role: 'RECEPTIONIST', page: 1, limit: 50 })
+        const result = await getUsers({
+          role: 'RECEPTIONIST',
+          page: pagination.current,
+          limit: pagination.pageSize,
+        })
         setReceptionists(result.items)
+        setPagination((currentPagination) => ({
+          ...currentPagination,
+          total: result.meta.pagination?.totalItems ?? result.items.length,
+        }))
       } catch (loadError) {
         setError(loadError.message)
       } finally {
@@ -40,15 +50,24 @@ function ReceptionistsPage() {
     }
 
     loadReceptionists()
-  }, [])
+  }, [pagination.current, pagination.pageSize])
+
+  const reloadReceptionists = async (nextPage = pagination.current, nextPageSize = pagination.pageSize) => {
+    const result = await getUsers({ role: 'RECEPTIONIST', page: nextPage, limit: nextPageSize })
+    setReceptionists(result.items)
+    setPagination({
+      current: result.meta.pagination?.page ?? nextPage,
+      pageSize: result.meta.pagination?.limit ?? nextPageSize,
+      total: result.meta.pagination?.totalItems ?? result.items.length,
+    })
+  }
 
   const handleCreateReceptionist = async (values) => {
     setIsCreating(true)
 
     try {
       await createReceptionist(values)
-      const result = await getUsers({ role: 'RECEPTIONIST', page: 1, limit: 50 })
-      setReceptionists(result.items)
+      await reloadReceptionists()
       message.success('Receptionist created successfully')
       setIsModalOpen(false)
       form.resetFields()
@@ -79,7 +98,17 @@ function ReceptionistsPage() {
         rowKey={(record) => record.id || record._id}
         loading={isLoading}
         dataSource={receptionists}
-        pagination={{ pageSize: 8, responsive: true }}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: pagination.total,
+          responsive: true,
+          showSizeChanger: true,
+          pageSizeOptions: ['5', '10', '20', '50'],
+          onChange: (page, pageSize) => {
+            setPagination({ current: page, pageSize, total: pagination.total })
+          },
+        }}
         scroll={{ x: 760 }}
         size="middle"
         columns={[
@@ -119,3 +148,4 @@ function ReceptionistsPage() {
 }
 
 export default ReceptionistsPage
+

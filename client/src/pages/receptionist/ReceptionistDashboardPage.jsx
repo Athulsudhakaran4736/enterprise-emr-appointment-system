@@ -16,8 +16,8 @@ const { Title, Paragraph } = Typography;
 
 function ReceptionistDashboardPage() {
   const [appointments, setAppointments] = useState([]);
-  const [patients, setPatients] = useState([]);
-  const [doctors, setDoctors] = useState([]);
+  const [patientCount, setPatientCount] = useState(0);
+  const [doctorCount, setDoctorCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -30,13 +30,17 @@ function ReceptionistDashboardPage() {
         const [appointmentResult, patientResult, doctorResult] =
           await Promise.all([
             getAppointments({ page: 1, limit: 100 }),
-            getPatients({ page: 1, limit: 100 }),
-            getDoctors({ page: 1, limit: 100 }),
+            getPatients({ page: 1, limit: 1 }),
+            getDoctors({ page: 1, limit: 1 }),
           ]);
 
         setAppointments(appointmentResult.items);
-        setPatients(patientResult.items);
-        setDoctors(doctorResult.items);
+        setPatientCount(
+          patientResult.meta.pagination?.totalItems ?? patientResult.items.length,
+        );
+        setDoctorCount(
+          doctorResult.meta.pagination?.totalItems ?? doctorResult.items.length,
+        );
       } catch (loadError) {
         setError(loadError.message);
       } finally {
@@ -68,8 +72,7 @@ function ReceptionistDashboardPage() {
   }, [appointments, today]);
 
   const upcomingAppointments = useMemo(
-    () =>
-      appointments.filter((item) => item.appointmentDate >= today).slice(0, 5),
+    () => appointments.filter((item) => item.appointmentDate >= today).slice(0, 5),
     [appointments, today],
   );
 
@@ -84,6 +87,16 @@ function ReceptionistDashboardPage() {
   return (
     <div className="space-y-6">
       {error ? <Alert type="error" message={error} showIcon /> : null}
+      <Card className="rounded-[28px] border-0 shadow-sm">
+        <Tag color="cyan" className="!mb-4 !rounded-full !px-4 !py-1">
+          Reception overview
+        </Tag>
+        <Title level={2} className="!mb-2">Daily front-desk snapshot</Title>
+        <Paragraph className="!mb-0 !text-slate-500">
+          Track today&apos;s queue, patient registrations, and upcoming visits without leaving the reception workflow.
+        </Paragraph>
+      </Card>
+
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <Card className="rounded-[24px] border-0 shadow-sm">
           <Statistic title="Today's appointments" value={metrics.totalToday} />
@@ -113,17 +126,10 @@ function ReceptionistDashboardPage() {
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <Card className="rounded-[24px] border-0 shadow-sm">
-          <Statistic title="Registered patients" value={patients.length} />
+          <Statistic title="Registered patients" value={patientCount} />
         </Card>
         <Card className="rounded-[24px] border-0 shadow-sm">
-          <Statistic
-            title="Active doctors"
-            value={
-              doctors.filter(
-                (doctor) => doctor.isActive && doctor.user?.isActive,
-              ).length
-            }
-          />
+          <Statistic title="Active doctors" value={doctorCount} />
         </Card>
         <Card className="rounded-[24px] border-0 shadow-sm">
           <Statistic
@@ -150,7 +156,7 @@ function ReceptionistDashboardPage() {
             >
               <List.Item.Meta
                 title={item.patient?.name || "Unknown patient"}
-                description={`${item.appointmentDate} � ${item.startTime} - ${item.endTime} � ${item.doctor?.user?.name || "Doctor unavailable"}`}
+                description={`${item.appointmentDate} | ${item.startTime} - ${item.endTime} | ${item.doctor?.user?.name || "Doctor unavailable"}`}
               />
               <Tag color={appointmentStatusColors[item.status] || "default"}>
                 {formatStatusLabel(item.status)}

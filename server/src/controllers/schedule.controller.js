@@ -29,18 +29,20 @@ const getDoctorSchedules = asyncHandler(async (req, res) => {
   const includeInactive =
     req.user.role === ROLES.SUPER_ADMIN && req.query.includeInactive === "true";
 
-  const schedules = await scheduleService.getDoctorSchedules({
+  const result = await scheduleService.getDoctorSchedules({
     doctorId: req.params.doctorId,
     includeInactive,
+    page: Number(req.query.page) || 1,
+    limit: Number(req.query.limit) || 20,
   });
 
   return sendSuccess(res, {
     message: "Doctor schedules retrieved successfully",
     data: {
-      schedules,
+      schedules: result.schedules,
     },
     meta: {
-      total: schedules.length,
+      pagination: result.pagination,
     },
   });
 });
