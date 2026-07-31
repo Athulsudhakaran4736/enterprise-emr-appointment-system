@@ -9,22 +9,22 @@ const router = express.Router();
 
 router.use(authenticate);
 
-router.get(
-  "/search",
-  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
-  patientController.searchPatients,
-);
+// router.get(
+//   "/search",
+//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
+//   patientController.searchPatients,
+// );
 
-router.get(
-  "/:id",
-  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
-  patientController.getPatientById,
-);
+// router.get(
+//   "/:id",
+//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
+//   patientController.getPatientById,
+// );
 
-router.post(
-  "/",
-  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
-  patientController.createPatient,
-);
+// router.post(
+//   "/",
+//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
+//   patientController.createPatient,
+// );
 
 module.exports = router;

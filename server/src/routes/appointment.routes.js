@@ -9,46 +9,46 @@ const router = express.Router();
 
 router.use(authenticate);
 
-router.post(
-  "/",
-  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
-  appointmentController.createAppointment,
-);
+// router.post(
+//   "/",
+//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
+//   appointmentController.createAppointment,
+// );
 
-router.get(
-  "/",
-  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
-  appointmentController.getAppointments,
-);
+// router.get(
+//   "/",
+//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
+//   appointmentController.getAppointments,
+// );
 
-router.get(
-  "/:id",
-  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
-  appointmentController.getAppointmentById,
-);
+// router.get(
+//   "/:id",
+//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
+//   appointmentController.getAppointmentById,
+// );
 
-router.put(
-  "/:id",
-  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
-  appointmentController.updateAppointment,
-);
+// router.put(
+//   "/:id",
+//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST, ROLES.DOCTOR),
+//   appointmentController.updateAppointment,
+// );
 
-router.delete(
-  "/:id",
-  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
-  appointmentController.cancelAppointment,
-);
+// router.delete(
+//   "/:id",
+//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
+//   appointmentController.cancelAppointment,
+// );
 
-router.post(
-  "/:id/arrive",
-  authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
-  appointmentController.markPatientArrived,
-);
+// router.post(
+//   "/:id/arrive",
+//   authorize(ROLES.SUPER_ADMIN, ROLES.RECEPTIONIST),
+//   appointmentController.markPatientArrived,
+// );
 
-router.post(
-  "/:id/complete",
-  authorize(ROLES.SUPER_ADMIN, ROLES.DOCTOR),
-  appointmentController.completeAppointment,
-);
+// router.post(
+//   "/:id/complete",
+//   authorize(ROLES.SUPER_ADMIN, ROLES.DOCTOR),
+//   appointmentController.completeAppointment,
+// );
 
 module.exports = router;

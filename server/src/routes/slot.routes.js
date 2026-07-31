@@ -5,6 +5,6 @@ const authenticate = require("../middlewares/authenticate");
 
 const router = express.Router();
 
-router.get("/", authenticate, slotController.getSlots);
+// router.get("/", authenticate, slotController.getSlots);
 
 module.exports = router;

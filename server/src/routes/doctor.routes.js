@@ -9,12 +9,12 @@ const router = express.Router();
 
 router.use(authenticate);
 
-router.get("/", doctorController.getDoctors);
+// router.get("/", doctorController.getDoctors);
 
-router.get("/:id", doctorController.getDoctorById);
+// router.get("/:id", doctorController.getDoctorById);
 
-router.post("/", authorize(ROLES.SUPER_ADMIN), doctorController.createDoctor);
+// router.post("/", authorize(ROLES.SUPER_ADMIN), doctorController.createDoctor);
 
-router.put("/:id", authorize(ROLES.SUPER_ADMIN), doctorController.updateDoctor);
+// router.put("/:id", authorize(ROLES.SUPER_ADMIN), doctorController.updateDoctor);
 
 module.exports = router;

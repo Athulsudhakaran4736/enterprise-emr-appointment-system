@@ -10,7 +10,7 @@ const router = express.Router();
 router.use(authenticate);
 router.use(authorize(ROLES.SUPER_ADMIN));
 
-router.post("/receptionists", userController.createReceptionist);
+// router.post("/receptionists", userController.createReceptionist);
 
 router.get("/", userController.getUsers);
 
