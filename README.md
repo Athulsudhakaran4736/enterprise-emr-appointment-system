@@ -289,40 +289,34 @@ The root project does not require its own `.env` file. Environment variables are
 
 ### Backend: `server/.env`
 
-Required:
-
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/emr_appointments
-CLIENT_URL=http://localhost:5173
-JWT_ACCESS_SECRET=your_access_secret
-JWT_REFRESH_SECRET=your_refresh_secret
-SUPER_ADMIN_NAME=System Administrator
-SUPER_ADMIN_EMAIL=admin@test.com
-SUPER_ADMIN_PASSWORD=Password123
-```
-
-Optional with defaults:
-
-```env
-NODE_ENV=development
-JWT_ACCESS_EXPIRES_IN=15m
-JWT_REFRESH_EXPIRES_IN=7d
-JWT_ISSUER=emr-appointment-api
-JWT_AUDIENCE=emr-appointment-client
-BCRYPT_SALT_ROUNDS=12
-```
+| Variable | Required | Example | Purpose |
+| --- | --- | --- | --- |
+| `PORT` | Yes | `5000` | Port used by the Express API server. |
+| `MONGODB_URI` | Yes | `mongodb://localhost:27017/emr_appointments` | MongoDB connection string used by the backend. |
+| `CLIENT_URL` | Yes | `http://localhost:5173` | Allowed frontend origin for CORS and cookie-based auth. |
+| `JWT_ACCESS_SECRET` | Yes | `your_access_secret` | Secret used to sign access tokens. |
+| `JWT_REFRESH_SECRET` | Yes | `your_refresh_secret` | Secret used to sign refresh tokens. |
+| `SUPER_ADMIN_NAME` | Yes | `System Administrator` | Name used by the seed script for the initial super admin. |
+| `SUPER_ADMIN_EMAIL` | Yes | `admin@test.com` | Email used by the seed script for the initial super admin. |
+| `SUPER_ADMIN_PASSWORD` | Yes | `Password123` | Password used by the seed script for the initial super admin. |
+| `NODE_ENV` | No | `development` | Controls development vs production behavior such as cookie security settings. |
+| `JWT_ACCESS_EXPIRES_IN` | No | `15m` | Access token expiry duration. |
+| `JWT_REFRESH_EXPIRES_IN` | No | `7d` | Refresh token expiry duration. |
+| `JWT_ISSUER` | No | `emr-appointment-api` | JWT issuer value used during token generation and verification. |
+| `JWT_AUDIENCE` | No | `emr-appointment-client` | JWT audience value used during token generation and verification. |
+| `BCRYPT_SALT_ROUNDS` | No | `12` | Password hashing cost factor for seeded and created users. |
 
 ### Frontend: `client/.env`
 
-Optional:
+| Variable | Required | Example | Purpose |
+| --- | --- | --- | --- |
+| `VITE_API_BASE_URL` | No | `http://localhost:5000/api/v1` | Base URL used by the frontend Axios client for API requests. If omitted, the frontend defaults to `http://localhost:5000/api/v1`. |
 
-```env
-VITE_API_BASE_URL=http://localhost:5000/api/v1
-```
+### Notes
 
-If omitted, the frontend defaults to `http://localhost:5000/api/v1`.
-
+- Use example values only for local development or demo environments.
+- Do not commit real secrets, production admin credentials, or private database connection strings.
+- In production, set your own secure values in Render and Vercel environment settings.
 ## Installation Instructions
 
 ### Prerequisites
@@ -505,3 +499,4 @@ Important:
 ## Related Documents
 
 - [`ENGINEERING_DECISIONS.md`](./ENGINEERING_DECISIONS.md) for the reasoning behind architecture, schema, security, indexing, performance, and scaling choices
+
