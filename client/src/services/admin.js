@@ -1,6 +1,12 @@
 import { apiClient } from './api.js'
 
 const getErrorMessage = (error) => {
+  const validationMessage = error.response?.data?.meta?.errors?.[0]?.message
+
+  if (validationMessage) {
+    return validationMessage
+  }
+
   if (error.response?.data?.message) {
     return error.response.data.message
   }
