@@ -407,7 +407,7 @@ Recommended Vercel project settings for this repo:
 Required Vercel environment variable:
 
 ```env
-VITE_API_BASE_URL=https://your-render-backend.onrender.com/api/v1
+VITE_API_BASE_URL=https://enterprise-emr-appointment-system.onrender.com/
 ```
 
 `client/vercel.json` is included to support React Router deep links by rewriting unknown routes to `index.html`.
