@@ -1,0 +1,4083 @@
+{
+  "info": {
+    "_postman_id": "70d9d96c-6004-4438-a484-d6d48e5dace6",
+    "name": "EMR",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32238636"
+  },
+  "item": [
+    {
+      "name": "AUTH",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"admin@test.com\",\r\n  \"password\": \"test@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/auth/login",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Login",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"admin@test.com\",\r\n  \"password\": \"test@123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/auth/login",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:03:36 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "516"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"299-OmbP6+lZOFz94WYOK3xMLk1y22g\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "1994423a-8388-4e35"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJ0eXBlIjoicmVmcmVzaCIsImlhdCI6MTc4NTU2NzgxNSwiZXhwIjoxNzg2MTcyNjE1LCJhdWQiOiJlbXItYXBwb2ludG1lbnQtY2xpZW50IiwiaXNzIjoiZW1yLWFwcG9pbnRtZW50LWFwaSIsImp0aSI6Ijc5ZTNlY2E5LThjZjItNGM1NC04NzM1LTk5MWY2MDAyODBkMCJ9.cI_OhcWjC42POkqykb9OU_k-jV54vbzdAHlh8uYEYsI; Path=/api/v1/auth; Expires=Sat, 08 Aug 2026 07:03:35 GMT; HttpOnly; Secure; SameSite=None"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a242fbd11c8025e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Login successful\",\n    \"data\": {\n        \"user\": {\n            \"id\": \"6a6c9ae2ef206bd05b60a45a\",\n            \"name\": \"System Administrator\",\n            \"email\": \"admin@test.com\",\n            \"role\": \"SUPER_ADMIN\",\n            \"isActive\": true,\n            \"lastLoginAt\": \"2026-08-01T07:03:36.019Z\"\n        },\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0\",\n        \"accessTokenExpiresAt\": \"2026-08-01T07:18:35.000Z\"\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "user info",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/auth/me",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "user info",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/auth/me",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:04:17 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "200"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"101-zmuTuiwjtqarhvQd3PksLnlg8RQ\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "9e94cee5-9c37-4e8a"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a242fcde0e9c25e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Current user retrieved successfully\",\n    \"data\": {\n        \"user\": {\n            \"name\": \"System Administrator\",\n            \"email\": \"admin@test.com\",\n            \"role\": \"SUPER_ADMIN\",\n            \"isActive\": true,\n            \"lastLoginAt\": \"2026-08-01T07:03:36.019Z\",\n            \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "refreshtoke/logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/auth/refresh",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Department",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Test\",\r\n  \"code\": \"TEST\",\r\n  \"description\": \"Diagnosis and treatment of cardiovascular conditions\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/departments",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "departments"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Test\",\r\n  \"code\": \"TEST\",\r\n  \"description\": \"Diagnosis and treatment of cardiovascular conditions\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/departments",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "departments"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:05:39 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "240"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"17e-Flf/4DCnr/RFirsF+SHq4MlJreU\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "7dd98ef3-0b2f-41cc"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a242fedddd0e25e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Department created successfully\",\n    \"data\": {\n        \"department\": {\n            \"name\": \"Test\",\n            \"code\": \"TEST\",\n            \"description\": \"Diagnosis and treatment of cardiovascular conditions\",\n            \"isActive\": true,\n            \"createdBy\": \"6a6c9ae2ef206bd05b60a45a\",\n            \"updatedBy\": null,\n            \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n            \"createdAt\": \"2026-08-01T07:05:38.828Z\",\n            \"updatedAt\": \"2026-08-01T07:05:38.828Z\",\n            \"__v\": 0\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "List",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/departments?search=ca",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "departments"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "ca"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/departments?search=ca",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "departments"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "ca"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:06:14 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "302"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"237-tlNo+Tj2Wkde6Wpt+BsaumMLaOM\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "6b4dd548-ed33-4e87"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a242ffb94c4725e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Departments retrieved successfully\",\n    \"data\": {\n        \"departments\": [\n            {\n                \"_id\": \"6a6d9175ea3058c0a9143817\",\n                \"name\": \"Cardiology\",\n                \"code\": \"CARD\",\n                \"description\": \"Cardiology Department\",\n                \"isActive\": true,\n                \"createdBy\": {\n                    \"_id\": \"6a6c9ae2ef206bd05b60a45a\",\n                    \"name\": \"System Administrator\",\n                    \"email\": \"admin@test.com\"\n                },\n                \"updatedBy\": {\n                    \"_id\": \"6a6c9ae2ef206bd05b60a45a\",\n                    \"name\": \"System Administrator\",\n                    \"email\": \"admin@test.com\"\n                },\n                \"createdAt\": \"2026-08-01T06:25:57.582Z\",\n                \"updatedAt\": \"2026-08-01T06:26:54.299Z\"\n            }\n        ]\n    },\n    \"meta\": {\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 20,\n            \"totalItems\": 1,\n            \"totalPages\": 1\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"description\": \"Cardiology and cardiovascular medicine\",\r\n  \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/departments/6a6d9ac27da6a45ad63edefb",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "departments",
+                "6a6d9ac27da6a45ad63edefb"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"description\": \"Cardiology and cardiovascular medicine\",\r\n  \"isActive\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/departments/6a6d9ac27da6a45ad63edefb",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "departments",
+                    "6a6d9ac27da6a45ad63edefb"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:06:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "247"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"186-lcD239IK7WI6Hpu2K9LdugCNCDk\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "f7207c3e-7660-4139"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a24300c91aa425e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Department updated successfully\",\n    \"data\": {\n        \"department\": {\n            \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n            \"name\": \"Test\",\n            \"code\": \"TEST\",\n            \"description\": \"Cardiology and cardiovascular medicine\",\n            \"isActive\": true,\n            \"createdBy\": \"6a6c9ae2ef206bd05b60a45a\",\n            \"updatedBy\": \"6a6c9ae2ef206bd05b60a45a\",\n            \"createdAt\": \"2026-08-01T07:05:38.828Z\",\n            \"updatedAt\": \"2026-08-01T07:06:57.436Z\",\n            \"__v\": 0\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "create receptionist",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Reception User\",\r\n  \"email\": \"receptionist@example.com\",\r\n  \"password\": \"Reception123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/users/receptionists",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "receptionists"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "create receptionist",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Reception User\",\r\n  \"email\": \"receptionist@example.com\",\r\n  \"password\": \"Reception123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/users/receptionists",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "receptionists"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:07:33 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "206"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"13c-7/eh0NjFnDb02g8IrgipIeoLWPY\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "0550b5be-1473-4dc1"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a243019b7ac625e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Receptionist created successfully\",\n    \"data\": {\n        \"user\": {\n            \"id\": \"6a6d9b357da6a45ad63edefc\",\n            \"name\": \"Reception User\",\n            \"email\": \"receptionist@example.com\",\n            \"role\": \"RECEPTIONIST\",\n            \"isActive\": true,\n            \"lastLoginAt\": null,\n            \"createdAt\": \"2026-08-01T07:07:33.183Z\",\n            \"updatedAt\": \"2026-08-01T07:07:33.183Z\"\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "List users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/users?role=RECEPTIONIST&page=1&limit=20",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "role",
+                  "value": "RECEPTIONIST"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Doctor",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Dr. Arun Kumar\",\r\n  \"email\": \"arun.doctor4@example.com\",\r\n  \"password\": \"Doctor123\",\r\n  \"department\": \"6a6d9ac27da6a45ad63edefb\",\r\n  \"specialization\": \"Interventional Cardiology\",\r\n  \"registrationNumber\": \"KMC-1234569\",\r\n  \"qualification\": \"MBBS, MD Cardiology\",\r\n  \"consultationDuration\": 15\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/doctors",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "doctors"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create Doctor",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Dr. Arun Kumar\",\r\n  \"email\": \"arun.doctor4@example.com\",\r\n  \"password\": \"Doctor123\",\r\n  \"department\": \"6a6d9ac27da6a45ad63edefb\",\r\n  \"specialization\": \"Interventional Cardiology\",\r\n  \"registrationNumber\": \"KMC-1234569\",\r\n  \"qualification\": \"MBBS, MD Cardiology\",\r\n  \"consultationDuration\": 15\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/doctors",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "doctors"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:08:43 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "383"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"2c3-vjF0gO8/PS/wR4X16K8AgV9bkAw\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "9e382cc1-552c-476f"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a24303493ddc25e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Doctor created successfully\",\n    \"data\": {\n        \"doctor\": {\n            \"_id\": \"6a6d9b7a7da6a45ad63edeff\",\n            \"user\": {\n                \"name\": \"Dr. Arun Kumar\",\n                \"email\": \"arun.doctor4@example.com\",\n                \"role\": \"DOCTOR\",\n                \"isActive\": true,\n                \"id\": \"6a6d9b7a7da6a45ad63edefe\"\n            },\n            \"department\": {\n                \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                \"name\": \"Test\",\n                \"code\": \"TEST\",\n                \"isActive\": true\n            },\n            \"specialization\": \"Interventional Cardiology\",\n            \"registrationNumber\": \"KMC-1234569\",\n            \"qualification\": \"MBBS, MD Cardiology\",\n            \"consultationDuration\": 15,\n            \"isActive\": true,\n            \"createdBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"updatedBy\": null,\n            \"createdAt\": \"2026-08-01T07:08:42.525Z\",\n            \"updatedAt\": \"2026-08-01T07:08:42.525Z\",\n            \"__v\": 0\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "list doctors",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/doctors?search=Arun",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "doctors"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Arun"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "list doctors",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/doctors?search=Arun",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "doctors"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "Arun"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:09:09 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "424"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"30b-P2Fjl4hxBxIe/ZIWgfudEiMaSu4\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "83baf220-1aef-44ba"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a2430401ca1225e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Doctors retrieved successfully\",\n    \"data\": {\n        \"doctors\": [\n            {\n                \"_id\": \"6a6d9b7a7da6a45ad63edeff\",\n                \"user\": {\n                    \"_id\": \"6a6d9b7a7da6a45ad63edefe\",\n                    \"name\": \"Dr. Arun Kumar\",\n                    \"email\": \"arun.doctor4@example.com\",\n                    \"role\": \"DOCTOR\",\n                    \"isActive\": true\n                },\n                \"department\": {\n                    \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                    \"name\": \"Test\",\n                    \"code\": \"TEST\",\n                    \"isActive\": true\n                },\n                \"specialization\": \"Interventional Cardiology\",\n                \"registrationNumber\": \"KMC-1234569\",\n                \"qualification\": \"MBBS, MD Cardiology\",\n                \"consultationDuration\": 15,\n                \"isActive\": true,\n                \"createdBy\": {\n                    \"_id\": \"6a6c9ae2ef206bd05b60a45a\",\n                    \"name\": \"System Administrator\",\n                    \"email\": \"admin@test.com\"\n                },\n                \"updatedBy\": null,\n                \"createdAt\": \"2026-08-01T07:08:42.525Z\",\n                \"updatedAt\": \"2026-08-01T07:08:42.525Z\",\n                \"__v\": 0\n            }\n        ]\n    },\n    \"meta\": {\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 20,\n            \"totalItems\": 1,\n            \"totalPages\": 1\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Doctor",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"qualification\": \"MBBS, MD, DM Cardiology\",\r\n  \"consultationDuration\": 20\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/doctors/6a6d9b7a7da6a45ad63edeff",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "doctors",
+                "6a6d9b7a7da6a45ad63edeff"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update Doctor",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"qualification\": \"MBBS, MD, DM Cardiology\",\r\n  \"consultationDuration\": 20\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/doctors/6a6d9b7a7da6a45ad63edeff",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "doctors",
+                    "6a6d9b7a7da6a45ad63edeff"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:09:50 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "391"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"31b-vdw1ENIFR+HRhlNxokGj8P1Ire8\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "b9f8fddc-6fd3-4758"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a24304f9ad5825e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Doctor updated successfully\",\n    \"data\": {\n        \"doctor\": {\n            \"_id\": \"6a6d9b7a7da6a45ad63edeff\",\n            \"user\": {\n                \"name\": \"Dr. Arun Kumar\",\n                \"email\": \"arun.doctor4@example.com\",\n                \"role\": \"DOCTOR\",\n                \"isActive\": true,\n                \"id\": \"6a6d9b7a7da6a45ad63edefe\"\n            },\n            \"department\": {\n                \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                \"name\": \"Test\",\n                \"code\": \"TEST\",\n                \"isActive\": true\n            },\n            \"specialization\": \"Interventional Cardiology\",\n            \"registrationNumber\": \"KMC-1234569\",\n            \"qualification\": \"MBBS, MD, DM Cardiology\",\n            \"consultationDuration\": 20,\n            \"isActive\": true,\n            \"createdBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"updatedBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"createdAt\": \"2026-08-01T07:08:42.525Z\",\n            \"updatedAt\": \"2026-08-01T07:09:49.535Z\",\n            \"__v\": 0\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "item": [
+        {
+          "name": "schedule",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"doctor\": \"6a6d9b7a7da6a45ad63edeff\",\r\n  \"workingDays\": [\r\n    {\r\n      \"dayOfWeek\": 1,\r\n      \"isWorking\": true,\r\n      \"sessions\": [\r\n        {\r\n          \"startTime\": \"09:00\",\r\n          \"endTime\": \"12:00\",\r\n          \"breaks\": []\r\n        },\r\n        {\r\n          \"startTime\": \"13:00\",\r\n          \"endTime\": \"17:00\",\r\n          \"breaks\": [\r\n            {\r\n              \"startTime\": \"15:00\",\r\n              \"endTime\": \"15:15\"\r\n            }\r\n          ]\r\n        }\r\n      ]\r\n    },\r\n    {\r\n      \"dayOfWeek\": 2,\r\n      \"isWorking\": true,\r\n      \"sessions\": [\r\n        {\r\n          \"startTime\": \"09:00\",\r\n          \"endTime\": \"13:00\",\r\n          \"breaks\": []\r\n        }\r\n      ]\r\n    },\r\n    {\r\n      \"dayOfWeek\": 0,\r\n      \"isWorking\": false,\r\n      \"sessions\": []\r\n    }\r\n  ],\r\n  \"slotDurationMinutes\": 15,\r\n  \"timezone\": \"Asia/Kolkata\",\r\n  \"effectiveFrom\": \"2026-08-01\",\r\n  \"effectiveTo\": null,\r\n  \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/schedules",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "schedules"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "schedule",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"doctor\": \"6a6d9b7a7da6a45ad63edeff\",\r\n  \"workingDays\": [\r\n    {\r\n      \"dayOfWeek\": 1,\r\n      \"isWorking\": true,\r\n      \"sessions\": [\r\n        {\r\n          \"startTime\": \"09:00\",\r\n          \"endTime\": \"12:00\",\r\n          \"breaks\": []\r\n        },\r\n        {\r\n          \"startTime\": \"13:00\",\r\n          \"endTime\": \"17:00\",\r\n          \"breaks\": [\r\n            {\r\n              \"startTime\": \"15:00\",\r\n              \"endTime\": \"15:15\"\r\n            }\r\n          ]\r\n        }\r\n      ]\r\n    },\r\n    {\r\n      \"dayOfWeek\": 2,\r\n      \"isWorking\": true,\r\n      \"sessions\": [\r\n        {\r\n          \"startTime\": \"09:00\",\r\n          \"endTime\": \"13:00\",\r\n          \"breaks\": []\r\n        }\r\n      ]\r\n    },\r\n    {\r\n      \"dayOfWeek\": 0,\r\n      \"isWorking\": false,\r\n      \"sessions\": []\r\n    }\r\n  ],\r\n  \"slotDurationMinutes\": 15,\r\n  \"timezone\": \"Asia/Kolkata\",\r\n  \"effectiveFrom\": \"2026-08-01\",\r\n  \"effectiveTo\": null,\r\n  \"isActive\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/schedules",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "schedules"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:10:32 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "504"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"473-MRg+fEzCkcIXjtxd39CC/ZCZuLU\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "7bda55d4-c508-4f3d"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a24305fe080825e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Doctor schedule created successfully\",\n    \"data\": {\n        \"schedule\": {\n            \"doctor\": {\n                \"_id\": \"6a6d9b7a7da6a45ad63edeff\",\n                \"user\": {\n                    \"name\": \"Dr. Arun Kumar\",\n                    \"email\": \"arun.doctor4@example.com\",\n                    \"isActive\": true,\n                    \"id\": \"6a6d9b7a7da6a45ad63edefe\"\n                },\n                \"department\": {\n                    \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                    \"name\": \"Test\",\n                    \"code\": \"TEST\",\n                    \"isActive\": true\n                },\n                \"specialization\": \"Interventional Cardiology\",\n                \"registrationNumber\": \"KMC-1234569\",\n                \"isActive\": true\n            },\n            \"workingDays\": [\n                {\n                    \"dayOfWeek\": 1,\n                    \"isWorking\": true,\n                    \"sessions\": [\n                        {\n                            \"startTime\": \"09:00\",\n                            \"endTime\": \"12:00\",\n                            \"breaks\": []\n                        },\n                        {\n                            \"startTime\": \"13:00\",\n                            \"endTime\": \"17:00\",\n                            \"breaks\": [\n                                {\n                                    \"startTime\": \"15:00\",\n                                    \"endTime\": \"15:15\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"dayOfWeek\": 2,\n                    \"isWorking\": true,\n                    \"sessions\": [\n                        {\n                            \"startTime\": \"09:00\",\n                            \"endTime\": \"13:00\",\n                            \"breaks\": []\n                        }\n                    ]\n                },\n                {\n                    \"dayOfWeek\": 0,\n                    \"isWorking\": false,\n                    \"sessions\": []\n                }\n            ],\n            \"slotDurationMinutes\": 15,\n            \"timezone\": \"Asia/Kolkata\",\n            \"effectiveFrom\": \"2026-08-01\",\n            \"effectiveTo\": null,\n            \"isActive\": true,\n            \"createdBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"updatedBy\": null,\n            \"createdAt\": \"2026-08-01T07:10:31.225Z\",\n            \"updatedAt\": \"2026-08-01T07:10:31.225Z\",\n            \"id\": \"6a6d9be77da6a45ad63edf02\"\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "fetch doctor schedules",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/schedules/doctor/6a6d9b7a7da6a45ad63edeff?includeInactive=true",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "schedules",
+                "doctor",
+                "6a6d9b7a7da6a45ad63edeff"
+              ],
+              "query": [
+                {
+                  "key": "includeInactive",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "fetch doctor schedules",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/schedules/doctor/6a6d9b7a7da6a45ad63edeff?includeInactive=true",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "schedules",
+                    "doctor",
+                    "6a6d9b7a7da6a45ad63edeff"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeInactive",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:11:02 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "547"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"4c4-WowuMLsc6vh9pDAE/jXuNFblk7k\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "1e338779-d853-495a"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a24306beea6225e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Doctor schedules retrieved successfully\",\n    \"data\": {\n        \"schedules\": [\n            {\n                \"_id\": \"6a6d9be77da6a45ad63edf02\",\n                \"doctor\": {\n                    \"_id\": \"6a6d9b7a7da6a45ad63edeff\",\n                    \"user\": {\n                        \"_id\": \"6a6d9b7a7da6a45ad63edefe\",\n                        \"name\": \"Dr. Arun Kumar\",\n                        \"email\": \"arun.doctor4@example.com\",\n                        \"isActive\": true\n                    },\n                    \"department\": {\n                        \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                        \"name\": \"Test\",\n                        \"code\": \"TEST\",\n                        \"isActive\": true\n                    },\n                    \"specialization\": \"Interventional Cardiology\",\n                    \"registrationNumber\": \"KMC-1234569\",\n                    \"isActive\": true\n                },\n                \"workingDays\": [\n                    {\n                        \"dayOfWeek\": 1,\n                        \"isWorking\": true,\n                        \"sessions\": [\n                            {\n                                \"startTime\": \"09:00\",\n                                \"endTime\": \"12:00\",\n                                \"breaks\": []\n                            },\n                            {\n                                \"startTime\": \"13:00\",\n                                \"endTime\": \"17:00\",\n                                \"breaks\": [\n                                    {\n                                        \"startTime\": \"15:00\",\n                                        \"endTime\": \"15:15\"\n                                    }\n                                ]\n                            }\n                        ]\n                    },\n                    {\n                        \"dayOfWeek\": 2,\n                        \"isWorking\": true,\n                        \"sessions\": [\n                            {\n                                \"startTime\": \"09:00\",\n                                \"endTime\": \"13:00\",\n                                \"breaks\": []\n                            }\n                        ]\n                    },\n                    {\n                        \"dayOfWeek\": 0,\n                        \"isWorking\": false,\n                        \"sessions\": []\n                    }\n                ],\n                \"slotDurationMinutes\": 15,\n                \"timezone\": \"Asia/Kolkata\",\n                \"effectiveFrom\": \"2026-08-01\",\n                \"effectiveTo\": null,\n                \"isActive\": true,\n                \"createdBy\": {\n                    \"_id\": \"6a6c9ae2ef206bd05b60a45a\",\n                    \"name\": \"System Administrator\",\n                    \"email\": \"admin@test.com\"\n                },\n                \"updatedBy\": null,\n                \"createdAt\": \"2026-08-01T07:10:31.225Z\",\n                \"updatedAt\": \"2026-08-01T07:10:31.225Z\",\n                \"__v\": 0\n            }\n        ]\n    },\n    \"meta\": {\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 20,\n            \"totalItems\": 1,\n            \"totalPages\": 1\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "schdeule by id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/schedules/6a6d9be77da6a45ad63edf02",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "schedules",
+                "6a6d9be77da6a45ad63edf02"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "schdeule by id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/schedules/6a6d9be77da6a45ad63edf02",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "schedules",
+                    "6a6d9be77da6a45ad63edf02"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:11:55 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "507"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"475-UHkiAgF+VWlXJEnNiXnlT/GlomI\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "de05ef20-d87a-475e"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a243080f895b25e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Doctor schedule retrieved successfully\",\n    \"data\": {\n        \"schedule\": {\n            \"doctor\": {\n                \"_id\": \"6a6d9b7a7da6a45ad63edeff\",\n                \"user\": {\n                    \"name\": \"Dr. Arun Kumar\",\n                    \"email\": \"arun.doctor4@example.com\",\n                    \"isActive\": true,\n                    \"id\": \"6a6d9b7a7da6a45ad63edefe\"\n                },\n                \"department\": {\n                    \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                    \"name\": \"Test\",\n                    \"code\": \"TEST\",\n                    \"isActive\": true\n                },\n                \"specialization\": \"Interventional Cardiology\",\n                \"registrationNumber\": \"KMC-1234569\",\n                \"isActive\": true\n            },\n            \"workingDays\": [\n                {\n                    \"dayOfWeek\": 1,\n                    \"isWorking\": true,\n                    \"sessions\": [\n                        {\n                            \"startTime\": \"09:00\",\n                            \"endTime\": \"12:00\",\n                            \"breaks\": []\n                        },\n                        {\n                            \"startTime\": \"13:00\",\n                            \"endTime\": \"17:00\",\n                            \"breaks\": [\n                                {\n                                    \"startTime\": \"15:00\",\n                                    \"endTime\": \"15:15\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"dayOfWeek\": 2,\n                    \"isWorking\": true,\n                    \"sessions\": [\n                        {\n                            \"startTime\": \"09:00\",\n                            \"endTime\": \"13:00\",\n                            \"breaks\": []\n                        }\n                    ]\n                },\n                {\n                    \"dayOfWeek\": 0,\n                    \"isWorking\": false,\n                    \"sessions\": []\n                }\n            ],\n            \"slotDurationMinutes\": 15,\n            \"timezone\": \"Asia/Kolkata\",\n            \"effectiveFrom\": \"2026-08-01\",\n            \"effectiveTo\": null,\n            \"isActive\": true,\n            \"createdBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"updatedBy\": null,\n            \"createdAt\": \"2026-08-01T07:10:31.225Z\",\n            \"updatedAt\": \"2026-08-01T07:10:31.225Z\",\n            \"id\": \"6a6d9be77da6a45ad63edf02\"\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "update schedule",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"slotDurationMinutes\": 20\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/schedules/6a6d9be77da6a45ad63edf02",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "schedules",
+                "6a6d9be77da6a45ad63edf02"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "update schedule",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"slotDurationMinutes\": 20\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/schedules/6a6d9be77da6a45ad63edf02",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "schedules",
+                    "6a6d9be77da6a45ad63edf02"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:12:32 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "513"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"4c7-yQqnypyfIo7aVdN60G3J7NTixCk\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "ad65405d-ea8b-4ec3"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a24308ed794a25e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Doctor schedule updated successfully\",\n    \"data\": {\n        \"schedule\": {\n            \"doctor\": {\n                \"_id\": \"6a6d9b7a7da6a45ad63edeff\",\n                \"user\": {\n                    \"name\": \"Dr. Arun Kumar\",\n                    \"email\": \"arun.doctor4@example.com\",\n                    \"isActive\": true,\n                    \"id\": \"6a6d9b7a7da6a45ad63edefe\"\n                },\n                \"department\": {\n                    \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                    \"name\": \"Test\",\n                    \"code\": \"TEST\",\n                    \"isActive\": true\n                },\n                \"specialization\": \"Interventional Cardiology\",\n                \"registrationNumber\": \"KMC-1234569\",\n                \"isActive\": true\n            },\n            \"workingDays\": [\n                {\n                    \"dayOfWeek\": 1,\n                    \"isWorking\": true,\n                    \"sessions\": [\n                        {\n                            \"startTime\": \"09:00\",\n                            \"endTime\": \"12:00\",\n                            \"breaks\": []\n                        },\n                        {\n                            \"startTime\": \"13:00\",\n                            \"endTime\": \"17:00\",\n                            \"breaks\": [\n                                {\n                                    \"startTime\": \"15:00\",\n                                    \"endTime\": \"15:15\"\n                                }\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"dayOfWeek\": 2,\n                    \"isWorking\": true,\n                    \"sessions\": [\n                        {\n                            \"startTime\": \"09:00\",\n                            \"endTime\": \"13:00\",\n                            \"breaks\": []\n                        }\n                    ]\n                },\n                {\n                    \"dayOfWeek\": 0,\n                    \"isWorking\": false,\n                    \"sessions\": []\n                }\n            ],\n            \"slotDurationMinutes\": 20,\n            \"timezone\": \"Asia/Kolkata\",\n            \"effectiveFrom\": \"2026-08-01\",\n            \"effectiveTo\": null,\n            \"isActive\": true,\n            \"createdBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"updatedBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"createdAt\": \"2026-08-01T07:10:31.225Z\",\n            \"updatedAt\": \"2026-08-01T07:12:31.614Z\",\n            \"id\": \"6a6d9be77da6a45ad63edf02\"\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "slots",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/slots?doctorId=6a6d9b7a7da6a45ad63edeff&date=2026-08-03",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "slots"
+              ],
+              "query": [
+                {
+                  "key": "doctorId",
+                  "value": "6a6d9b7a7da6a45ad63edeff"
+                },
+                {
+                  "key": "date",
+                  "value": "2026-08-03"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "slots",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/slots?doctorId=6a6d9b7a7da6a45ad63edeff&date=2026-08-03",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "slots"
+                  ],
+                  "query": [
+                    {
+                      "key": "doctorId",
+                      "value": "6a6d9b7a7da6a45ad63edeff"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2026-08-03"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:13:06 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "359"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"62e-9b6ME4+Ccc0dB9MKGILBeaL1N30\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "48d7e345-03cb-4634"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a24309c9af7625e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Appointment slots retrieved successfully\",\n    \"data\": {\n        \"doctor\": {\n            \"id\": \"6a6d9b7a7da6a45ad63edeff\",\n            \"name\": \"Dr. Arun Kumar\"\n        },\n        \"department\": {\n            \"id\": \"6a6d9ac27da6a45ad63edefb\",\n            \"name\": \"Test\",\n            \"code\": \"TEST\"\n        },\n        \"date\": \"2026-08-03\",\n        \"timezone\": \"Asia/Kolkata\",\n        \"slotDurationMinutes\": 20,\n        \"slots\": [\n            {\n                \"startTime\": \"09:00\",\n                \"endTime\": \"09:20\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"09:20\",\n                \"endTime\": \"09:40\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"09:40\",\n                \"endTime\": \"10:00\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"10:00\",\n                \"endTime\": \"10:20\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"10:20\",\n                \"endTime\": \"10:40\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"10:40\",\n                \"endTime\": \"11:00\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"11:00\",\n                \"endTime\": \"11:20\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"11:20\",\n                \"endTime\": \"11:40\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"11:40\",\n                \"endTime\": \"12:00\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"13:00\",\n                \"endTime\": \"13:20\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"13:20\",\n                \"endTime\": \"13:40\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"13:40\",\n                \"endTime\": \"14:00\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"14:00\",\n                \"endTime\": \"14:20\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"14:20\",\n                \"endTime\": \"14:40\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"14:40\",\n                \"endTime\": \"15:00\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"15:20\",\n                \"endTime\": \"15:40\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"15:40\",\n                \"endTime\": \"16:00\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"16:00\",\n                \"endTime\": \"16:20\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"16:20\",\n                \"endTime\": \"16:40\",\n                \"status\": \"AVAILABLE\"\n            },\n            {\n                \"startTime\": \"16:40\",\n                \"endTime\": \"17:00\",\n                \"status\": \"AVAILABLE\"\n            }\n        ]\n    },\n    \"meta\": {\n        \"totalSlots\": 20,\n        \"availableSlots\": 20,\n        \"bookedSlots\": 0\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Patient",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Arjun\",\r\n  \"dateOfBirth\": \"1992-06-15\",\r\n  \"gender\": \"MALE\",\r\n  \"mobile\": \"9876543210\",\r\n  \"email\": \"arjun@example.com\",\r\n  \"address\": \"Bengaluru, Karnataka\",\r\n  \"emergencyContact\": {\r\n    \"name\": \"Sunitha Kumar\",\r\n    \"relationship\": \"Spouse\",\r\n    \"mobile\": \"9876500000\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/patients",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "patients"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "create",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Arjun\",\r\n  \"dateOfBirth\": \"1992-06-15\",\r\n  \"gender\": \"MALE\",\r\n  \"mobile\": \"9876543210\",\r\n  \"email\": \"arjun@example.com\",\r\n  \"address\": \"Bengaluru, Karnataka\",\r\n  \"emergencyContact\": {\r\n    \"name\": \"Sunitha Kumar\",\r\n    \"relationship\": \"Spouse\",\r\n    \"mobile\": \"9876500000\"\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/patients",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "patients"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:13:47 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "383"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"270-m0lciylXGowtglYyKhC15btZ+UM\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "bfe2e761-d59d-4f96"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a2430ac28ddf25e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Patient created successfully\",\n    \"data\": {\n        \"patient\": {\n            \"patientNumber\": \"PAT-20260801-702A0C97\",\n            \"name\": \"Arjun\",\n            \"dateOfBirth\": \"1992-06-15\",\n            \"gender\": \"MALE\",\n            \"mobile\": \"9876543210\",\n            \"email\": \"arjun@example.com\",\n            \"address\": \"Bengaluru, Karnataka\",\n            \"emergencyContact\": {\n                \"name\": \"Sunitha Kumar\",\n                \"relationship\": \"Spouse\",\n                \"mobile\": \"9876500000\"\n            },\n            \"isActive\": true,\n            \"createdBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"role\": \"SUPER_ADMIN\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"updatedBy\": null,\n            \"createdAt\": \"2026-08-01T07:13:45.987Z\",\n            \"updatedAt\": \"2026-08-01T07:13:45.987Z\",\n            \"id\": \"6a6d9ca97da6a45ad63edf05\"\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "List",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/patients?mobile=9876543210",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "patients"
+              ],
+              "query": [
+                {
+                  "key": "mobile",
+                  "value": "9876543210"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/patients?mobile=9876543210",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "patients"
+                  ],
+                  "query": [
+                    {
+                      "key": "mobile",
+                      "value": "9876543210"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:14:15 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "356"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"22c-vwB4GNRv5CQWLpU7z4Iund1Pxls\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "2824e8af-fb96-4a52"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a2430b780a2825e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Patients retrieved successfully\",\n    \"data\": {\n        \"patients\": [\n            {\n                \"_id\": \"6a6d9ca97da6a45ad63edf05\",\n                \"patientNumber\": \"PAT-20260801-702A0C97\",\n                \"name\": \"Arjun\",\n                \"dateOfBirth\": \"1992-06-15\",\n                \"gender\": \"MALE\",\n                \"mobile\": \"9876543210\",\n                \"email\": \"arjun@example.com\",\n                \"address\": \"Bengaluru, Karnataka\",\n                \"emergencyContact\": {\n                    \"name\": \"Sunitha Kumar\",\n                    \"relationship\": \"Spouse\",\n                    \"mobile\": \"9876500000\"\n                },\n                \"isActive\": true,\n                \"createdAt\": \"2026-08-01T07:13:45.987Z\",\n                \"updatedAt\": \"2026-08-01T07:13:45.987Z\"\n            }\n        ]\n    },\n    \"meta\": {\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 20,\n            \"totalItems\": 1,\n            \"totalPages\": 1\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get by patient id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/patients/6a6d9ca97da6a45ad63edf05",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "patients",
+                "6a6d9ca97da6a45ad63edf05"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get by patient id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/patients/6a6d9ca97da6a45ad63edf05",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "patients",
+                    "6a6d9ca97da6a45ad63edf05"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:14:56 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "389"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"272-aqBIaKdiSS9L+9iIs8d+1V2UGfE\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "62ca8760-63c8-4fe9"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a2430c77bd8825e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Patient retrieved successfully\",\n    \"data\": {\n        \"patient\": {\n            \"patientNumber\": \"PAT-20260801-702A0C97\",\n            \"name\": \"Arjun\",\n            \"dateOfBirth\": \"1992-06-15\",\n            \"gender\": \"MALE\",\n            \"mobile\": \"9876543210\",\n            \"email\": \"arjun@example.com\",\n            \"address\": \"Bengaluru, Karnataka\",\n            \"emergencyContact\": {\n                \"name\": \"Sunitha Kumar\",\n                \"relationship\": \"Spouse\",\n                \"mobile\": \"9876500000\"\n            },\n            \"isActive\": true,\n            \"createdBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"role\": \"SUPER_ADMIN\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"updatedBy\": null,\n            \"createdAt\": \"2026-08-01T07:13:45.987Z\",\n            \"updatedAt\": \"2026-08-01T07:13:45.987Z\",\n            \"id\": \"6a6d9ca97da6a45ad63edf05\"\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"mobile\": \"9876543299\",\r\n  \"address\": \"Indiranagar, Bengaluru\",\r\n  \"emergencyContact\": {\r\n    \"name\": \"Sunitha Kumar\",\r\n    \"relationship\": \"Spouse\",\r\n    \"mobile\": \"9876500011\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/patients/6a6d9ca97da6a45ad63edf05",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "patients",
+                "6a6d9ca97da6a45ad63edf05"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"mobile\": \"9876543299\",\r\n  \"address\": \"Indiranagar, Bengaluru\",\r\n  \"emergencyContact\": {\r\n    \"name\": \"Sunitha Kumar\",\r\n    \"relationship\": \"Spouse\",\r\n    \"mobile\": \"9876500011\"\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/patients/6a6d9ca97da6a45ad63edf05",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "patients",
+                    "6a6d9ca97da6a45ad63edf05"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:15:30 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "393"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"2db-xz8J3jbyDlMCPsKWx278xdqPoG4\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "781f5055-ac80-49d3"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a2430d478b2b25e0-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Patient updated successfully\",\n    \"data\": {\n        \"patient\": {\n            \"patientNumber\": \"PAT-20260801-702A0C97\",\n            \"name\": \"Arjun\",\n            \"dateOfBirth\": \"1992-06-15\",\n            \"gender\": \"MALE\",\n            \"mobile\": \"9876543299\",\n            \"email\": \"arjun@example.com\",\n            \"address\": \"Indiranagar, Bengaluru\",\n            \"emergencyContact\": {\n                \"name\": \"Sunitha Kumar\",\n                \"relationship\": \"Spouse\",\n                \"mobile\": \"9876500011\"\n            },\n            \"isActive\": true,\n            \"createdBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"role\": \"SUPER_ADMIN\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"updatedBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"role\": \"SUPER_ADMIN\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"createdAt\": \"2026-08-01T07:13:45.987Z\",\n            \"updatedAt\": \"2026-08-01T07:15:29.865Z\",\n            \"id\": \"6a6d9ca97da6a45ad63edf05\"\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Appointment",
+      "item": [
+        {
+          "name": "Create Appointment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY3ODE1LCJleHAiOjE3ODU1Njg3MTUsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNGUwZmM5YWQtYWQ1ZS00YjI4LTgxZjctYWZlMDJhMjRhYjE0In0.kDt7Ntu8xuYKehy3gFmhIks8fMv9WgkUMgvDcNmcZX0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"patientId\": \"6a6d9ca97da6a45ad63edf05\",\r\n  \"doctorId\": \"6a6d9b7a7da6a45ad63edeff\",\r\n  \"appointmentDate\": \"2026-08-03\",\r\n  \"startTime\": \"09:00\",\r\n  \"reasonForVisit\": \"Chest pain\",\r\n  \"notes\": \"First consultation\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/appointments",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "appointments"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create Appointment",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"patientId\": \"6a6d9ca97da6a45ad63edf05\",\r\n  \"doctorId\": \"6a6d9b7a7da6a45ad63edeff\",\r\n  \"appointmentDate\": \"2026-08-03\",\r\n  \"startTime\": \"09:00\",\r\n  \"reasonForVisit\": \"Chest pain\",\r\n  \"notes\": \"First consultation\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/appointments",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "appointments"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:18:37 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "699"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"5d3-iiQ5ReW6Bk+V5QNm4NIR8egH9F4\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "9e2dee5a-4f53-4c8d"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a24311cfff438cf1-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Appointment booked successfully\",\n    \"data\": {\n        \"appointment\": {\n            \"patient\": {\n                \"patientNumber\": \"PAT-20260801-702A0C97\",\n                \"name\": \"Arjun\",\n                \"dateOfBirth\": \"1992-06-15\",\n                \"gender\": \"MALE\",\n                \"mobile\": \"9876543299\",\n                \"email\": \"arjun@example.com\",\n                \"address\": \"Indiranagar, Bengaluru\",\n                \"emergencyContact\": {\n                    \"name\": \"Sunitha Kumar\",\n                    \"relationship\": \"Spouse\",\n                    \"mobile\": \"9876500011\"\n                },\n                \"isActive\": true,\n                \"id\": \"6a6d9ca97da6a45ad63edf05\"\n            },\n            \"doctor\": {\n                \"_id\": \"6a6d9b7a7da6a45ad63edeff\",\n                \"user\": {\n                    \"name\": \"Dr. Arun Kumar\",\n                    \"email\": \"arun.doctor4@example.com\",\n                    \"isActive\": true,\n                    \"id\": \"6a6d9b7a7da6a45ad63edefe\"\n                },\n                \"department\": {\n                    \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                    \"name\": \"Test\",\n                    \"code\": \"TEST\",\n                    \"isActive\": true\n                },\n                \"specialization\": \"Interventional Cardiology\",\n                \"registrationNumber\": \"KMC-1234569\",\n                \"qualification\": \"MBBS, MD, DM Cardiology\",\n                \"consultationDuration\": 20,\n                \"isActive\": true\n            },\n            \"department\": {\n                \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                \"name\": \"Test\",\n                \"code\": \"TEST\",\n                \"isActive\": true\n            },\n            \"appointmentDate\": \"2026-08-03\",\n            \"startTime\": \"09:00\",\n            \"endTime\": \"09:20\",\n            \"status\": \"SCHEDULED\",\n            \"isActiveBooking\": true,\n            \"reasonForVisit\": \"Chest pain\",\n            \"notes\": \"First consultation\",\n            \"arrivedAt\": null,\n            \"arrivedBy\": null,\n            \"completedAt\": null,\n            \"completedBy\": null,\n            \"cancelledAt\": null,\n            \"cancelledBy\": null,\n            \"cancellationReason\": \"\",\n            \"createdBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"role\": \"SUPER_ADMIN\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"updatedBy\": null,\n            \"createdAt\": \"2026-08-01T07:18:35.790Z\",\n            \"updatedAt\": \"2026-08-01T07:18:35.790Z\",\n            \"id\": \"6a6d9dcb7da6a45ad63edf08\"\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "List",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY4Nzk3LCJleHAiOjE3ODU1Njk2OTcsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNmQ3MTI2ZDktZjZhZi00OTc4LWJjYjEtZjRlNDJjYzI5OWQ0In0.TIp1swCnRnn3cf_2Pv-4DU7qEVljYtD8e19udWvd3Rw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/appointments",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "appointments"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/appointments",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "appointments"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:20:21 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "926"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"b3e-9Hh+4YYQ8ERVQ3/GfR4wyX/uqPo\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "c259b167-3811-41b3"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a2431467a9aec172-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Appointments retrieved successfully\",\n    \"data\": {\n        \"appointments\": [\n            {\n                \"_id\": \"6a6d9dcb7da6a45ad63edf08\",\n                \"patient\": {\n                    \"_id\": \"6a6d9ca97da6a45ad63edf05\",\n                    \"patientNumber\": \"PAT-20260801-702A0C97\",\n                    \"name\": \"Arjun\",\n                    \"dateOfBirth\": \"1992-06-15\",\n                    \"gender\": \"MALE\",\n                    \"mobile\": \"9876543299\",\n                    \"email\": \"arjun@example.com\",\n                    \"address\": \"Indiranagar, Bengaluru\",\n                    \"emergencyContact\": {\n                        \"name\": \"Sunitha Kumar\",\n                        \"relationship\": \"Spouse\",\n                        \"mobile\": \"9876500011\"\n                    },\n                    \"isActive\": true\n                },\n                \"doctor\": {\n                    \"_id\": \"6a6d9b7a7da6a45ad63edeff\",\n                    \"user\": {\n                        \"_id\": \"6a6d9b7a7da6a45ad63edefe\",\n                        \"name\": \"Dr. Arun Kumar\",\n                        \"email\": \"arun.doctor4@example.com\",\n                        \"isActive\": true\n                    },\n                    \"department\": {\n                        \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                        \"name\": \"Test\",\n                        \"code\": \"TEST\",\n                        \"isActive\": true\n                    },\n                    \"specialization\": \"Interventional Cardiology\",\n                    \"registrationNumber\": \"KMC-1234569\",\n                    \"qualification\": \"MBBS, MD, DM Cardiology\",\n                    \"consultationDuration\": 20,\n                    \"isActive\": true\n                },\n                \"department\": {\n                    \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                    \"name\": \"Test\",\n                    \"code\": \"TEST\",\n                    \"isActive\": true\n                },\n                \"appointmentDate\": \"2026-08-03\",\n                \"startTime\": \"09:00\",\n                \"endTime\": \"09:20\",\n                \"status\": \"SCHEDULED\",\n                \"isActiveBooking\": true,\n                \"reasonForVisit\": \"Chest pain\",\n                \"notes\": \"First consultation\",\n                \"arrivedAt\": null,\n                \"arrivedBy\": null,\n                \"completedAt\": null,\n                \"completedBy\": null,\n                \"cancelledAt\": null,\n                \"cancelledBy\": null,\n                \"cancellationReason\": \"\",\n                \"createdBy\": {\n                    \"_id\": \"6a6c9ae2ef206bd05b60a45a\",\n                    \"name\": \"System Administrator\",\n                    \"email\": \"admin@test.com\",\n                    \"role\": \"SUPER_ADMIN\"\n                },\n                \"updatedBy\": null,\n                \"createdAt\": \"2026-08-01T07:18:35.790Z\",\n                \"updatedAt\": \"2026-08-01T07:18:35.790Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"6a6d961cd39927f72a1abbca\",\n                \"patient\": {\n                    \"_id\": \"6a6d961cd39927f72a1abbc8\",\n                    \"patientNumber\": \"PAT-20260801-33F34AA3\",\n                    \"name\": \"patient1\",\n                    \"dateOfBirth\": \"2024-08-06\",\n                    \"gender\": \"FEMALE\",\n                    \"mobile\": \"8123827860\",\n                    \"email\": \"patient1@gmail.com\",\n                    \"address\": \"\",\n                    \"emergencyContact\": {\n                        \"name\": \"\",\n                        \"relationship\": \"\",\n                        \"mobile\": \"\"\n                    },\n                    \"isActive\": true\n                },\n                \"doctor\": {\n                    \"_id\": \"6a6d91e7ea3058c0a914381a\",\n                    \"user\": {\n                        \"_id\": \"6a6d91e7ea3058c0a9143819\",\n                        \"name\": \"Dr.James\",\n                        \"email\": \"james@hospital.com\",\n                        \"isActive\": true\n                    },\n                    \"department\": {\n                        \"_id\": \"6a6d9175ea3058c0a9143817\",\n                        \"name\": \"Cardiology\",\n                        \"code\": \"CARD\",\n                        \"isActive\": true\n                    },\n                    \"specialization\": \"Cardiology\",\n                    \"registrationNumber\": \"MED-1234\",\n                    \"qualification\": \"MBBS, MD\",\n                    \"consultationDuration\": 20,\n                    \"isActive\": true\n                },\n                \"department\": {\n                    \"_id\": \"6a6d9175ea3058c0a9143817\",\n                    \"name\": \"Cardiology\",\n                    \"code\": \"CARD\",\n                    \"isActive\": true\n                },\n                \"appointmentDate\": \"2026-08-03\",\n                \"startTime\": \"09:30\",\n                \"endTime\": \"09:45\",\n                \"status\": \"SCHEDULED\",\n                \"isActiveBooking\": true,\n                \"reasonForVisit\": \"\",\n                \"notes\": \"\",\n                \"arrivedAt\": null,\n                \"arrivedBy\": null,\n                \"completedAt\": null,\n                \"completedBy\": null,\n                \"cancelledAt\": null,\n                \"cancelledBy\": null,\n                \"cancellationReason\": \"\",\n                \"createdBy\": {\n                    \"_id\": \"6a6c9ae2ef206bd05b60a45a\",\n                    \"name\": \"System Administrator\",\n                    \"email\": \"admin@test.com\",\n                    \"role\": \"SUPER_ADMIN\"\n                },\n                \"updatedBy\": null,\n                \"createdAt\": \"2026-08-01T06:45:48.441Z\",\n                \"updatedAt\": \"2026-08-01T06:45:48.441Z\",\n                \"__v\": 0\n            }\n        ]\n    },\n    \"meta\": {\n        \"pagination\": {\n            \"page\": 1,\n            \"limit\": 20,\n            \"totalItems\": 2,\n            \"totalPages\": 1\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "List by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY4Nzk3LCJleHAiOjE3ODU1Njk2OTcsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNmQ3MTI2ZDktZjZhZi00OTc4LWJjYjEtZjRlNDJjYzI5OWQ0In0.TIp1swCnRnn3cf_2Pv-4DU7qEVljYtD8e19udWvd3Rw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/appointments/6a6d9dcb7da6a45ad63edf08",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "appointments",
+                "6a6d9dcb7da6a45ad63edf08"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List by ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/appointments/6a6d9dcb7da6a45ad63edf08",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "appointments",
+                    "6a6d9dcb7da6a45ad63edf08"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:21:20 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "702"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"5d6-cmwLTIULmFvzTIP0ycFDjQc2qlM\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "be7ede2e-5973-4c83"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a24315d52b3cc172-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Appointment retrieved successfully\",\n    \"data\": {\n        \"appointment\": {\n            \"patient\": {\n                \"patientNumber\": \"PAT-20260801-702A0C97\",\n                \"name\": \"Arjun\",\n                \"dateOfBirth\": \"1992-06-15\",\n                \"gender\": \"MALE\",\n                \"mobile\": \"9876543299\",\n                \"email\": \"arjun@example.com\",\n                \"address\": \"Indiranagar, Bengaluru\",\n                \"emergencyContact\": {\n                    \"name\": \"Sunitha Kumar\",\n                    \"relationship\": \"Spouse\",\n                    \"mobile\": \"9876500011\"\n                },\n                \"isActive\": true,\n                \"id\": \"6a6d9ca97da6a45ad63edf05\"\n            },\n            \"doctor\": {\n                \"_id\": \"6a6d9b7a7da6a45ad63edeff\",\n                \"user\": {\n                    \"name\": \"Dr. Arun Kumar\",\n                    \"email\": \"arun.doctor4@example.com\",\n                    \"isActive\": true,\n                    \"id\": \"6a6d9b7a7da6a45ad63edefe\"\n                },\n                \"department\": {\n                    \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                    \"name\": \"Test\",\n                    \"code\": \"TEST\",\n                    \"isActive\": true\n                },\n                \"specialization\": \"Interventional Cardiology\",\n                \"registrationNumber\": \"KMC-1234569\",\n                \"qualification\": \"MBBS, MD, DM Cardiology\",\n                \"consultationDuration\": 20,\n                \"isActive\": true\n            },\n            \"department\": {\n                \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                \"name\": \"Test\",\n                \"code\": \"TEST\",\n                \"isActive\": true\n            },\n            \"appointmentDate\": \"2026-08-03\",\n            \"startTime\": \"09:00\",\n            \"endTime\": \"09:20\",\n            \"status\": \"SCHEDULED\",\n            \"isActiveBooking\": true,\n            \"reasonForVisit\": \"Chest pain\",\n            \"notes\": \"First consultation\",\n            \"arrivedAt\": null,\n            \"arrivedBy\": null,\n            \"completedAt\": null,\n            \"completedBy\": null,\n            \"cancelledAt\": null,\n            \"cancelledBy\": null,\n            \"cancellationReason\": \"\",\n            \"createdBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"role\": \"SUPER_ADMIN\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"updatedBy\": null,\n            \"createdAt\": \"2026-08-01T07:18:35.790Z\",\n            \"updatedAt\": \"2026-08-01T07:18:35.790Z\",\n            \"id\": \"6a6d9dcb7da6a45ad63edf08\"\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTZjOWFlMmVmMjA2YmQwNWI2MGE0NWEiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzg1NTY4Nzk3LCJleHAiOjE3ODU1Njk2OTcsImF1ZCI6ImVtci1hcHBvaW50bWVudC1jbGllbnQiLCJpc3MiOiJlbXItYXBwb2ludG1lbnQtYXBpIiwianRpIjoiNmQ3MTI2ZDktZjZhZi00OTc4LWJjYjEtZjRlNDJjYzI5OWQ0In0.TIp1swCnRnn3cf_2Pv-4DU7qEVljYtD8e19udWvd3Rw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"doctorId\": \"6a6d9b7a7da6a45ad63edeff\",\r\n  \"appointmentDate\": \"2026-08-03\",\r\n  \"startTime\": \"10:00\",\r\n  \"reasonForVisit\": \"Follow-up chest consultation\",\r\n  \"notes\": \"Updated slot\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/appointments/6a6d9dcb7da6a45ad63edf08",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "appointments",
+                "6a6d9dcb7da6a45ad63edf08"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"doctorId\": \"6a6d9b7a7da6a45ad63edeff\",\r\n  \"appointmentDate\": \"2026-08-03\",\r\n  \"startTime\": \"10:00\",\r\n  \"reasonForVisit\": \"Follow-up chest consultation\",\r\n  \"notes\": \"Updated slot\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/v1/appointments/6a6d9dcb7da6a45ad63edf08",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "appointments",
+                    "6a6d9dcb7da6a45ad63edf08"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 07:25:53 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "719"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://enterprise-emr-appointment-system.vercel.app"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"649-JLdeaDxRJCjr1UxbnLVN4A8pzuY\""
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "edaa3e2c-1d92-40b6"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "Render"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "a2431c7a9a850989-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Appointment updated successfully\",\n    \"data\": {\n        \"appointment\": {\n            \"patient\": {\n                \"patientNumber\": \"PAT-20260801-702A0C97\",\n                \"name\": \"Arjun\",\n                \"dateOfBirth\": \"1992-06-15\",\n                \"gender\": \"MALE\",\n                \"mobile\": \"9876543299\",\n                \"email\": \"arjun@example.com\",\n                \"address\": \"Indiranagar, Bengaluru\",\n                \"emergencyContact\": {\n                    \"name\": \"Sunitha Kumar\",\n                    \"relationship\": \"Spouse\",\n                    \"mobile\": \"9876500011\"\n                },\n                \"isActive\": true,\n                \"id\": \"6a6d9ca97da6a45ad63edf05\"\n            },\n            \"doctor\": {\n                \"_id\": \"6a6d9b7a7da6a45ad63edeff\",\n                \"user\": {\n                    \"name\": \"Dr. Arun Kumar\",\n                    \"email\": \"arun.doctor4@example.com\",\n                    \"isActive\": true,\n                    \"id\": \"6a6d9b7a7da6a45ad63edefe\"\n                },\n                \"department\": {\n                    \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                    \"name\": \"Test\",\n                    \"code\": \"TEST\",\n                    \"isActive\": true\n                },\n                \"specialization\": \"Interventional Cardiology\",\n                \"registrationNumber\": \"KMC-1234569\",\n                \"qualification\": \"MBBS, MD, DM Cardiology\",\n                \"consultationDuration\": 20,\n                \"isActive\": true\n            },\n            \"department\": {\n                \"_id\": \"6a6d9ac27da6a45ad63edefb\",\n                \"name\": \"Test\",\n                \"code\": \"TEST\",\n                \"isActive\": true\n            },\n            \"appointmentDate\": \"2026-08-03\",\n            \"startTime\": \"10:00\",\n            \"endTime\": \"10:20\",\n            \"status\": \"SCHEDULED\",\n            \"isActiveBooking\": true,\n            \"reasonForVisit\": \"Follow-up chest consultation\",\n            \"notes\": \"Updated slot\",\n            \"arrivedAt\": null,\n            \"arrivedBy\": null,\n            \"completedAt\": null,\n            \"completedBy\": null,\n            \"cancelledAt\": null,\n            \"cancelledBy\": null,\n            \"cancellationReason\": \"\",\n            \"createdBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"role\": \"SUPER_ADMIN\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"updatedBy\": {\n                \"name\": \"System Administrator\",\n                \"email\": \"admin@test.com\",\n                \"role\": \"SUPER_ADMIN\",\n                \"id\": \"6a6c9ae2ef206bd05b60a45a\"\n            },\n            \"createdAt\": \"2026-08-01T07:18:35.790Z\",\n            \"updatedAt\": \"2026-08-01T07:25:52.682Z\",\n            \"id\": \"6a6d9dcb7da6a45ad63edf08\"\n        }\n    },\n    \"meta\": {}\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
