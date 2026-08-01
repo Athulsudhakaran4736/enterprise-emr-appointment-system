@@ -31,6 +31,7 @@ enterprise-emr-appointment-system/
 |   |   |-- routes/            # Protected, public, and redirect routes
 |   |   |-- services/          # Axios clients, auth helpers, realtime client
 |   |   |-- utils/             # Shared formatters and helpers
+|   |-- vercel.json            # SPA routing config for Vercel deployment
 |   |-- package.json
 |
 |-- server/
@@ -48,6 +49,7 @@ enterprise-emr-appointment-system/
 |   |   |-- validators/        # Express-validator request schemas
 |   |-- package.json
 |
+|-- render.yaml                # Render blueprint for backend deployment
 |-- ENGINEERING_DECISIONS.md   # Engineering rationale
 |-- README.md
 |-- package.json               # Root convenience scripts
@@ -383,6 +385,76 @@ npm run dev --prefix client
 ```bash
 npm run build --prefix client
 ```
+
+## Deployment
+
+### Frontend on Vercel
+
+Recommended Vercel project settings for this repo:
+
+- Root Directory: `client`
+- Framework Preset: `Vite`
+- Build Command: `npm run build`
+- Output Directory: `dist`
+- Install Command: `npm install`
+
+Required Vercel environment variable:
+
+```env
+VITE_API_BASE_URL=https://your-render-backend.onrender.com/api/v1
+```
+
+`client/vercel.json` is included to support React Router deep links by rewriting unknown routes to `index.html`.
+
+### Backend on Render
+
+Recommended Render Web Service settings for this repo:
+
+- Root Directory: `server`
+- Runtime: `Node`
+- Build Command: `npm install`
+- Start Command: `npm start`
+
+Required Render environment variables:
+
+```env
+NODE_ENV=production
+CLIENT_URL=https://your-vercel-frontend.vercel.app
+MONGODB_URI=your_mongodb_connection_string
+JWT_ACCESS_SECRET=your_access_secret
+JWT_REFRESH_SECRET=your_refresh_secret
+SUPER_ADMIN_NAME=System Administrator
+SUPER_ADMIN_EMAIL=admin@test.com
+SUPER_ADMIN_PASSWORD=Password123
+```
+
+Optional backend environment variables:
+
+```env
+PORT=5000
+JWT_ACCESS_EXPIRES_IN=15m
+JWT_REFRESH_EXPIRES_IN=7d
+JWT_ISSUER=emr-appointment-api
+JWT_AUDIENCE=emr-appointment-client
+BCRYPT_SALT_ROUNDS=12
+```
+
+A `render.yaml` blueprint is included at the project root to make backend deployment easier.
+
+### Cross-origin auth and realtime notes
+
+This deployment split works with the current code because:
+
+- backend CORS is controlled through `CLIENT_URL`
+- refresh token cookies use `secure: true` and `sameSite: none` in production
+- the frontend API client already sends credentials
+- Socket.IO connects to the backend base domain derived from `VITE_API_BASE_URL`
+
+Important:
+
+- both frontend and backend must use HTTPS in production
+- `CLIENT_URL` must exactly match the active Vercel frontend domain
+- if you change the Vercel custom domain later, update `CLIENT_URL` on Render too
 
 ## Assumptions Made
 
