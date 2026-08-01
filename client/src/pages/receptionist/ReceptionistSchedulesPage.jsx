@@ -11,9 +11,9 @@ import {
 } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { getDoctorSchedules, getDoctors } from "../../services/admin.js";
-import { weekdayLabels } from "./receptionist-utils.js";
+import { formatSessionSummary, weekdayLabels } from "./receptionist-utils.js";
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Text } = Typography;
 const defaultPageSize = 5;
 
 function ReceptionistSchedulesPage() {
@@ -189,20 +189,7 @@ function ReceptionistSchedulesPage() {
                           description={
                             entry?.isWorking
                               ? entry.sessions.length
-                                ? entry.sessions
-                                    .map((session) => {
-                                      const breaks = session.breaks?.length
-                                        ? ` | Breaks: ${session.breaks
-                                            .map(
-                                              (currentBreak) =>
-                                                `${currentBreak.startTime}-${currentBreak.endTime}`,
-                                            )
-                                            .join(", ")}`
-                                        : "";
-
-                                      return `${session.startTime}-${session.endTime}${breaks}`;
-                                    })
-                                    .join(" � ")
+                                ? formatSessionSummary(entry.sessions)
                                 : "Working day with no session blocks configured"
                               : "Not working"
                           }
@@ -238,3 +225,4 @@ function ReceptionistSchedulesPage() {
 }
 
 export default ReceptionistSchedulesPage;
+

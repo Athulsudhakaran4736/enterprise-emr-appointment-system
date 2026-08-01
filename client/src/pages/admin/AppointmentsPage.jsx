@@ -30,6 +30,7 @@ import {
   markPatientArrived as actionMarkPatientArrived,
   updateAppointment,
 } from '../../services/admin.js'
+import { subscribeToAppointmentChanges } from '../../services/realtime.js'
 
 const { Title, Paragraph } = Typography
 const appointmentStatuses = ['SCHEDULED', 'ARRIVED', 'COMPLETED', 'CANCELLED']
@@ -104,6 +105,14 @@ function AppointmentsPage() {
 
   useEffect(() => {
     refreshAppointments()
+  }, [refreshAppointments])
+
+  useEffect(() => {
+    const unsubscribe = subscribeToAppointmentChanges(() => {
+      refreshAppointments()
+    })
+
+    return unsubscribe
   }, [refreshAppointments])
 
   const closeModal = () => {
@@ -564,4 +573,3 @@ function AppointmentsPage() {
 }
 
 export default AppointmentsPage
-

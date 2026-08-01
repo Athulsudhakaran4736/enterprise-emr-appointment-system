@@ -1,4 +1,5 @@
 const appointmentService = require("../services/appointment.service");
+const { emitAppointmentChanged } = require("../sockets");
 const asyncHandler = require("../utils/asyncHandler");
 const { sendSuccess } = require("../utils/response");
 
@@ -20,6 +21,8 @@ const createAppointment = asyncHandler(async (req, res) => {
     actorRole: req.user.role,
     ...getRequestInformation(req),
   });
+
+  emitAppointmentChanged("created");
 
   return sendSuccess(res, {
     statusCode: 201,
@@ -80,6 +83,8 @@ const updateAppointment = asyncHandler(async (req, res) => {
     ...getRequestInformation(req),
   });
 
+  emitAppointmentChanged("updated");
+
   return sendSuccess(res, {
     message: "Appointment updated successfully",
     data: {
@@ -97,6 +102,8 @@ const cancelAppointment = asyncHandler(async (req, res) => {
     ...getRequestInformation(req),
   });
 
+  emitAppointmentChanged("cancelled");
+
   return sendSuccess(res, {
     message: "Appointment cancelled successfully",
     data: {
@@ -113,6 +120,8 @@ const markPatientArrived = asyncHandler(async (req, res) => {
     ...getRequestInformation(req),
   });
 
+  emitAppointmentChanged("arrived");
+
   return sendSuccess(res, {
     message: "Patient marked as arrived successfully",
     data: {
@@ -128,6 +137,8 @@ const markAppointmentCompleted = asyncHandler(async (req, res) => {
     actorRole: req.user.role,
     ...getRequestInformation(req),
   });
+
+  emitAppointmentChanged("completed");
 
   return sendSuccess(res, {
     message: "Appointment marked as completed successfully",

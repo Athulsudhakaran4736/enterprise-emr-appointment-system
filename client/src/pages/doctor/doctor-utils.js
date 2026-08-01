@@ -3,5 +3,6 @@ export {
   weekdayLabels,
   formatStatusLabel,
   formatTimeRange,
+  formatSessionSummary,
   getScheduleSummary,
 } from '../../utils/formatters.js'

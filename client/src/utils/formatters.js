@@ -24,6 +24,19 @@ export const formatStatusLabel = (value) =>
 
 export const formatTimeRange = (startTime, endTime) => `${startTime} - ${endTime}`
 
+export const formatSessionSummary = (sessions = []) =>
+  sessions
+    .map((session) => {
+      const breaks = session.breaks?.length
+        ? ` (Breaks: ${session.breaks
+            .map((currentBreak) => formatTimeRange(currentBreak.startTime, currentBreak.endTime))
+            .join(', ')})`
+        : ''
+
+      return `${formatTimeRange(session.startTime, session.endTime)}${breaks}`
+    })
+    .join(' | ')
+
 export const getScheduleSummary = (workingDays = []) =>
   workingDays.filter((day) => day.isWorking).map((day) => ({
     ...day,

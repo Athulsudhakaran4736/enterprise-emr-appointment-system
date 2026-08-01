@@ -1,7 +1,8 @@
 import { Alert, Button, Card, DatePicker, Select, Spin, Table, Tag, Typography } from 'antd'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getMyAppointments } from '../../services/doctor.js'
+import { subscribeToAppointmentChanges } from '../../services/realtime.js'
 import { appointmentStatusColors, formatStatusLabel, formatTimeRange } from './doctor-utils.js'
 
 const { Title, Paragraph } = Typography
@@ -17,32 +18,41 @@ function DoctorAppointmentsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    const loadAppointments = async () => {
-      setIsLoading(true)
-      setError('')
+  const loadAppointments = useCallback(async (nextPage = pagination.current, nextPageSize = pagination.pageSize) => {
+    setIsLoading(true)
+    setError('')
 
-      try {
-        const result = await getMyAppointments({
-          page: pagination.current,
-          limit: pagination.pageSize,
-          status,
-          date,
-        })
-        setAppointments(result.items)
-        setPagination((currentPagination) => ({
-          ...currentPagination,
-          total: result.meta.pagination?.totalItems ?? result.items.length,
-        }))
-      } catch (loadError) {
-        setError(loadError.message)
-      } finally {
-        setIsLoading(false)
-      }
+    try {
+      const result = await getMyAppointments({
+        page: nextPage,
+        limit: nextPageSize,
+        status,
+        date,
+      })
+      setAppointments(result.items)
+      setPagination({
+        current: result.meta.pagination?.page ?? nextPage,
+        pageSize: result.meta.pagination?.limit ?? nextPageSize,
+        total: result.meta.pagination?.totalItems ?? result.items.length,
+      })
+    } catch (loadError) {
+      setError(loadError.message)
+    } finally {
+      setIsLoading(false)
     }
-
-    loadAppointments()
   }, [status, date, pagination.current, pagination.pageSize])
+
+  useEffect(() => {
+    loadAppointments()
+  }, [loadAppointments])
+
+  useEffect(() => {
+    const unsubscribe = subscribeToAppointmentChanges(() => {
+      loadAppointments()
+    })
+
+    return unsubscribe
+  }, [loadAppointments])
 
   const columns = useMemo(
     () => [
@@ -140,4 +150,3 @@ function DoctorAppointmentsPage() {
 }
 
 export default DoctorAppointmentsPage
-

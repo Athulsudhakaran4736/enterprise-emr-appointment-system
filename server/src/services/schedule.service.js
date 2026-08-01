@@ -361,7 +361,12 @@ const createSchedule = async ({
   return populateSchedule(DoctorSchedule.findById(schedule._id));
 };
 
-const getDoctorSchedules = async ({ doctorId, includeInactive }) => {
+const getDoctorSchedules = async ({
+  doctorId,
+  includeInactive,
+  page = 1,
+  limit = 20,
+}) => {
   const doctorExists = await Doctor.exists({
     _id: doctorId,
   });
@@ -378,12 +383,30 @@ const getDoctorSchedules = async ({ doctorId, includeInactive }) => {
     filter.isActive = true;
   }
 
-  return populateSchedule(
-    DoctorSchedule.find(filter).sort({
-      effectiveFrom: -1,
-      createdAt: -1,
-    }),
-  ).lean();
+  const skip = (page - 1) * limit;
+
+  const [schedules, totalItems] = await Promise.all([
+    populateSchedule(
+      DoctorSchedule.find(filter)
+        .sort({
+          effectiveFrom: -1,
+          createdAt: -1,
+        })
+        .skip(skip)
+        .limit(limit),
+    ).lean(),
+    DoctorSchedule.countDocuments(filter),
+  ]);
+
+  return {
+    schedules,
+    pagination: {
+      page,
+      limit,
+      totalItems,
+      totalPages: totalItems === 0 ? 0 : Math.ceil(totalItems / limit),
+    },
+  };
 };
 
 const getScheduleById = async ({ scheduleId, includeInactive }) => {
@@ -565,4 +588,3 @@ module.exports = {
   deactivateSchedule,
   getActiveScheduleForDate,
 };
-

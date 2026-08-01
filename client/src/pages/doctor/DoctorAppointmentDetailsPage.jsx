@@ -1,7 +1,8 @@
 import { Alert, Card, Descriptions, Result, Spin, Tag, Timeline, Typography } from 'antd'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getMyAppointmentById } from '../../services/doctor.js'
+import { subscribeToAppointmentChanges } from '../../services/realtime.js'
 import { appointmentStatusColors, formatStatusLabel, formatTimeRange } from './doctor-utils.js'
 
 const { Title, Paragraph } = Typography
@@ -12,23 +13,31 @@ function DoctorAppointmentDetailsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    const loadAppointment = async () => {
-      setIsLoading(true)
-      setError('')
+  const loadAppointment = useCallback(async () => {
+    setIsLoading(true)
+    setError('')
 
-      try {
-        const result = await getMyAppointmentById(appointmentId)
-        setAppointment(result)
-      } catch (loadError) {
-        setError(loadError.message)
-      } finally {
-        setIsLoading(false)
-      }
+    try {
+      const result = await getMyAppointmentById(appointmentId)
+      setAppointment(result)
+    } catch (loadError) {
+      setError(loadError.message)
+    } finally {
+      setIsLoading(false)
     }
-
-    loadAppointment()
   }, [appointmentId])
+
+  useEffect(() => {
+    loadAppointment()
+  }, [loadAppointment])
+
+  useEffect(() => {
+    const unsubscribe = subscribeToAppointmentChanges(() => {
+      loadAppointment()
+    })
+
+    return unsubscribe
+  }, [loadAppointment])
 
   if (isLoading) {
     return (

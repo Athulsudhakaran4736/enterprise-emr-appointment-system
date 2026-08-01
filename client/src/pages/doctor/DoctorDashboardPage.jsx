@@ -1,6 +1,6 @@
 import { Alert, Card, List, Spin, Statistic, Tag, Typography } from "antd";
 import dayjs from "dayjs";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/useAuth.js";
 import {
@@ -8,6 +8,7 @@ import {
   getMyDoctorSchedules,
   getMyDoctorProfile,
 } from "../../services/doctor.js";
+import { subscribeToAppointmentChanges } from "../../services/realtime.js";
 import {
   appointmentStatusColors,
   formatStatusLabel,
@@ -24,30 +25,38 @@ function DoctorDashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const loadData = async () => {
-      setIsLoading(true);
-      setError("");
+  const loadData = useCallback(async () => {
+    setIsLoading(true);
+    setError("");
 
-      try {
-        const [profile, appointmentResult, scheduleResult] = await Promise.all([
-          getMyDoctorProfile(user),
-          getMyAppointments({ page: 1, limit: 50 }),
-          getMyDoctorSchedules(user),
-        ]);
+    try {
+      const [profile, appointmentResult, scheduleResult] = await Promise.all([
+        getMyDoctorProfile(user),
+        getMyAppointments({ page: 1, limit: 50 }),
+        getMyDoctorSchedules(user),
+      ]);
 
-        setDoctor(profile);
-        setAppointments(appointmentResult.items);
-        setSchedules(scheduleResult.items);
-      } catch (loadError) {
-        setError(loadError.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadData();
+      setDoctor(profile);
+      setAppointments(appointmentResult.items);
+      setSchedules(scheduleResult.items);
+    } catch (loadError) {
+      setError(loadError.message);
+    } finally {
+      setIsLoading(false);
+    }
   }, [user]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  useEffect(() => {
+    const unsubscribe = subscribeToAppointmentChanges(() => {
+      loadData();
+    });
+
+    return unsubscribe;
+  }, [loadData]);
 
   const today = dayjs().format("YYYY-MM-DD");
 

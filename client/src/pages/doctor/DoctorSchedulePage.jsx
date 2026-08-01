@@ -11,14 +11,17 @@ import {
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/useAuth.js";
 import { getMyDoctorSchedules } from "../../services/doctor.js";
-import { getScheduleSummary, weekdayLabels } from "./doctor-utils.js";
+import {
+  formatSessionSummary,
+  getScheduleSummary,
+  weekdayLabels,
+} from "./doctor-utils.js";
 
-const { Title, Paragraph, Text } = Typography;
+const { Text } = Typography;
 const defaultPageSize = 5;
 
 function DoctorSchedulePage() {
   const { user } = useAuth();
-  const [doctor, setDoctor] = useState(null);
   const [schedules, setSchedules] = useState([]);
   const [pagination, setPagination] = useState({
     current: 1,
@@ -38,7 +41,6 @@ function DoctorSchedulePage() {
           page: pagination.current,
           limit: pagination.pageSize,
         });
-        setDoctor(result.doctor);
         setSchedules(result.items);
         setPagination((currentPagination) => ({
           ...currentPagination,
@@ -126,20 +128,7 @@ function DoctorSchedulePage() {
                           description={
                             day
                               ? day.sessions.length
-                                ? day.sessions
-                                    .map((session) => {
-                                      const breaks = session.breaks?.length
-                                        ? ` | Breaks: ${session.breaks
-                                            .map(
-                                              (currentBreak) =>
-                                                `${currentBreak.startTime}-${currentBreak.endTime}`,
-                                            )
-                                            .join(", ")}`
-                                        : "";
-
-                                      return `${session.startTime}-${session.endTime}${breaks}`;
-                                    })
-                                    .join(" � ")
+                                ? formatSessionSummary(day.sessions)
                                 : "Marked as working with no session blocks configured"
                               : "Not working"
                           }

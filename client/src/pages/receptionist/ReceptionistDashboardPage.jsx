@@ -1,18 +1,17 @@
-import { Alert, Card, List, Spin, Statistic, Tag, Typography } from "antd";
+import { Alert, Card, List, Spin, Statistic, Tag } from "antd";
 import dayjs from "dayjs";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   getAppointments,
   getDoctors,
   getPatients,
 } from "../../services/admin.js";
+import { subscribeToAppointmentChanges } from "../../services/realtime.js";
 import {
   appointmentStatusColors,
   formatStatusLabel,
 } from "./receptionist-utils.js";
-
-const { Title, Paragraph } = Typography;
 
 function ReceptionistDashboardPage() {
   const [appointments, setAppointments] = useState([]);
@@ -21,36 +20,43 @@ function ReceptionistDashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const loadData = async () => {
-      setIsLoading(true);
-      setError("");
+  const loadData = useCallback(async () => {
+    setIsLoading(true);
+    setError("");
 
-      try {
-        const [appointmentResult, patientResult, doctorResult] =
-          await Promise.all([
-            getAppointments({ page: 1, limit: 100 }),
-            getPatients({ page: 1, limit: 1 }),
-            getDoctors({ page: 1, limit: 1 }),
-          ]);
+    try {
+      const [appointmentResult, patientResult, doctorResult] =
+        await Promise.all([
+          getAppointments({ page: 1, limit: 100 }),
+          getPatients({ page: 1, limit: 1 }),
+          getDoctors({ page: 1, limit: 1 }),
+        ]);
 
-        setAppointments(appointmentResult.items);
-        setPatientCount(
-          patientResult.meta.pagination?.totalItems ??
-            patientResult.items.length,
-        );
-        setDoctorCount(
-          doctorResult.meta.pagination?.totalItems ?? doctorResult.items.length,
-        );
-      } catch (loadError) {
-        setError(loadError.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadData();
+      setAppointments(appointmentResult.items);
+      setPatientCount(
+        patientResult.meta.pagination?.totalItems ?? patientResult.items.length,
+      );
+      setDoctorCount(
+        doctorResult.meta.pagination?.totalItems ?? doctorResult.items.length,
+      );
+    } catch (loadError) {
+      setError(loadError.message);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  useEffect(() => {
+    const unsubscribe = subscribeToAppointmentChanges(() => {
+      loadData();
+    });
+
+    return unsubscribe;
+  }, [loadData]);
 
   const today = dayjs().format("YYYY-MM-DD");
 

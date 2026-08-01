@@ -18,6 +18,7 @@ import {
 import dayjs from 'dayjs'
 import { useEffect, useMemo, useState } from 'react'
 import { createSchedule, getDoctorSchedules, getDoctors, updateSchedule } from '../../services/admin.js'
+import { formatSessionSummary } from '../../utils/formatters.js'
 
 const { Title, Paragraph } = Typography
 const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -31,8 +32,22 @@ const createDefaultWorkingDays = () =>
   dayLabels.map((_, index) => ({
     dayOfWeek: index,
     isWorking: index > 0 && index < 6,
-    sessions: [{ startTime: dayjs('09:00', 'HH:mm'), endTime: dayjs('17:00', 'HH:mm') }],
+    sessions: [{ startTime: dayjs('09:00', 'HH:mm'), endTime: dayjs('17:00', 'HH:mm'), breaks: [] }],
   }))
+
+const mapBreaksToForm = (breaks = []) =>
+  breaks.map((currentBreak) => ({
+    startTime: currentBreak.startTime ? dayjs(currentBreak.startTime, 'HH:mm') : null,
+    endTime: currentBreak.endTime ? dayjs(currentBreak.endTime, 'HH:mm') : null,
+  }))
+
+const mapBreaksToPayload = (breaks = []) =>
+  breaks
+    .filter((currentBreak) => currentBreak?.startTime && currentBreak?.endTime)
+    .map((currentBreak) => ({
+      startTime: currentBreak.startTime.format('HH:mm'),
+      endTime: currentBreak.endTime.format('HH:mm'),
+    }))
 
 function SchedulesPage() {
   const { message } = AntApp.useApp()
@@ -148,6 +163,7 @@ function SchedulesPage() {
             {
               startTime: session?.startTime ? dayjs(session.startTime, 'HH:mm') : dayjs('09:00', 'HH:mm'),
               endTime: session?.endTime ? dayjs(session.endTime, 'HH:mm') : dayjs('17:00', 'HH:mm'),
+              breaks: mapBreaksToForm(session?.breaks),
             },
           ],
         }
@@ -175,7 +191,7 @@ function SchedulesPage() {
                 {
                   startTime: day.sessions?.[0]?.startTime?.format('HH:mm'),
                   endTime: day.sessions?.[0]?.endTime?.format('HH:mm'),
-                  breaks: [],
+                  breaks: mapBreaksToPayload(day.sessions?.[0]?.breaks),
                 },
               ]
             : [],
@@ -251,14 +267,27 @@ function SchedulesPage() {
               setPagination({ current: page, pageSize, total: pagination.total })
             },
           }}
-          scroll={{ x: 960 }}
+          scroll={{ x: 1140 }}
           size="middle"
           columns={[
             { title: 'Effective From', dataIndex: 'effectiveFrom', key: 'effectiveFrom', width: 140 },
             { title: 'Effective To', dataIndex: 'effectiveTo', key: 'effectiveTo', width: 140, render: (value) => value || 'Open-ended' },
             { title: 'Timezone', dataIndex: 'timezone', key: 'timezone', width: 150 },
             { title: 'Slot Duration', dataIndex: 'slotDurationMinutes', key: 'slotDurationMinutes', width: 140, render: (value) => `${value} min` },
-            { title: 'Working Days', key: 'workingDays', render: (_, record) => record.workingDays.filter((day) => day.isWorking).map((day) => dayLabels[day.dayOfWeek]).join(', ') },
+            { title: 'Working Days', key: 'workingDays', width: 160, render: (_, record) => record.workingDays.filter((day) => day.isWorking).map((day) => dayLabels[day.dayOfWeek]).join(', ') },
+            {
+              title: 'Sessions & Breaks',
+              key: 'sessions',
+              width: 300,
+              render: (_, record) => {
+                const activeDays = record.workingDays.filter((day) => day.isWorking)
+                return activeDays.length
+                  ? activeDays
+                      .map((day) => `${dayLabels[day.dayOfWeek]}: ${formatSessionSummary(day.sessions)}`)
+                      .join(' | ')
+                  : 'No working sessions'
+              },
+            },
             { title: 'Status', key: 'status', width: 120, render: (_, record) => <Tag color={record.isActive ? 'green' : 'default'}>{record.isActive ? 'Active' : 'Inactive'}</Tag> },
             { title: 'Action', key: 'action', width: 120, render: (_, record) => <Button onClick={() => openEditModal(record)}>Edit</Button> },
           ]}
@@ -274,7 +303,7 @@ function SchedulesPage() {
         onOk={() => form.submit()}
         okText={editingSchedule ? 'Update' : 'Create'}
         confirmLoading={isSaving}
-        width={920}
+        width={980}
       >
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
           <div className="grid gap-4 md:grid-cols-2">
@@ -290,7 +319,7 @@ function SchedulesPage() {
             <Form.Item label="Active status" name="isActive" valuePropName="checked">
               <Switch />
             </Form.Item>
-            <Form.Item label="Effective from" name="effectiveFrom" rules={[{ required: true, message: 'effectiveFrom is required' }]}>
+            <Form.Item label="Effective from" name="effectiveFrom" rules={[{ required: true, message: 'effectiveFrom is required' }] }>
               <DatePicker className="!w-full" format="YYYY-MM-DD" />
             </Form.Item>
             <Form.Item label="Effective to" name="effectiveTo">
@@ -305,20 +334,48 @@ function SchedulesPage() {
                 <div className="grid gap-4">
                   {fields.map((field, index) => (
                     <Card key={field.key} size="small" className="rounded-2xl border border-slate-200">
-                      <div className="grid gap-4 md:grid-cols-[140px_120px_1fr_1fr] md:items-center">
+                      <div className="grid gap-4">
                         <Form.Item name={[field.name, 'dayOfWeek']} hidden>
                           <InputNumber />
                         </Form.Item>
-                        <div className="font-medium text-slate-900">{dayLabels[index]}</div>
-                        <Form.Item label="Working" name={[field.name, 'isWorking']} valuePropName="checked" className="!mb-0">
-                          <Switch />
-                        </Form.Item>
-                        <Form.Item label="Start" name={[field.name, 'sessions', 0, 'startTime']} className="!mb-0">
-                          <TimePicker className="!w-full" format="HH:mm" minuteStep={5} />
-                        </Form.Item>
-                        <Form.Item label="End" name={[field.name, 'sessions', 0, 'endTime']} className="!mb-0">
-                          <TimePicker className="!w-full" format="HH:mm" minuteStep={5} />
-                        </Form.Item>
+                        <div className="grid gap-4 md:grid-cols-[140px_120px_1fr_1fr] md:items-center">
+                          <div className="font-medium text-slate-900">{dayLabels[index]}</div>
+                          <Form.Item label="Working" name={[field.name, 'isWorking']} valuePropName="checked" className="!mb-0">
+                            <Switch />
+                          </Form.Item>
+                          <Form.Item label="Start" name={[field.name, 'sessions', 0, 'startTime']} className="!mb-0">
+                            <TimePicker className="!w-full" format="HH:mm" minuteStep={5} />
+                          </Form.Item>
+                          <Form.Item label="End" name={[field.name, 'sessions', 0, 'endTime']} className="!mb-0">
+                            <TimePicker className="!w-full" format="HH:mm" minuteStep={5} />
+                          </Form.Item>
+                        </div>
+
+                        <div className="rounded-2xl border border-dashed border-slate-200 p-4">
+                          <div className="mb-3 text-sm font-medium text-slate-700">Breaks</div>
+                          <Form.List name={[field.name, 'sessions', 0, 'breaks']}>
+                            {(breakFields, breakOperations) => (
+                              <div className="grid gap-3">
+                                {breakFields.map((breakField) => (
+                                  <div key={breakField.key} className="grid gap-3 md:grid-cols-[1fr_1fr_auto] md:items-end">
+                                    <Form.Item label="Break start" name={[breakField.name, 'startTime']} className="!mb-0">
+                                      <TimePicker className="!w-full" format="HH:mm" minuteStep={5} />
+                                    </Form.Item>
+                                    <Form.Item label="Break end" name={[breakField.name, 'endTime']} className="!mb-0">
+                                      <TimePicker className="!w-full" format="HH:mm" minuteStep={5} />
+                                    </Form.Item>
+                                    <Button danger onClick={() => breakOperations.remove(breakField.name)}>
+                                      Remove
+                                    </Button>
+                                  </div>
+                                ))}
+                                <Button type="dashed" onClick={() => breakOperations.add({ startTime: null, endTime: null })}>
+                                  Add Break
+                                </Button>
+                              </div>
+                            )}
+                          </Form.List>
+                        </div>
                       </div>
                     </Card>
                   ))}
@@ -333,4 +390,3 @@ function SchedulesPage() {
 }
 
 export default SchedulesPage
-
