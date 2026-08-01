@@ -349,9 +349,20 @@ Create the required `.env` files in `server/` and optionally `client/` using the
 
 ### 2. Seed the super admin
 
+Run the seed script after setting the super admin environment variables.
+
 ```bash
 npm run seed:admin --prefix server
 ```
+
+Example local seed credentials for development/demo only:
+
+```text
+Email: admin@test.com
+Password: Password123
+```
+
+Use your own values in production. Do not rely on these example credentials outside local or demo environments.
 
 ### 3. Start backend and frontend together
 
